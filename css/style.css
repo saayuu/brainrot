@@ -169,3 +169,51 @@ body{background:var(--bg);color:var(--tx);font-family:var(--ff);min-height:100vh
 @keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 @keyframes to{to{opacity:0;transform:translateX(-50%) translateY(12px)}}
 @keyframes pop{from{transform:scale(.8)}to{transform:scale(1)}}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(10,10,22,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);padding:0 16px}
+.site-header-inner{max-width:660px;margin:0 auto;height:48px;display:flex;align-items:center;justify-content:space-between}
+.site-logo{font-weight:800;font-size:1.1rem;letter-spacing:.02em;cursor:pointer;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;user-select:none}
+.logo-e-sm{font-size:.75em;opacity:.7;color:var(--cy);-webkit-text-fill-color:var(--cy)}
+.hdr-btn{background:none;border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);font-size:.8rem;padding:5px 10px;cursor:pointer;font-family:var(--ff)}
+.hdr-btn:hover{color:var(--tx);border-color:var(--tx2)}
+.hdr-score{font-family:var(--fm);font-size:.85rem;color:var(--cy);font-weight:500}
+.header-right{display:flex;align-items:center;gap:8px}
+
+/* HOME */
+.auth-wrap{display:flex;flex-direction:column;gap:12px;max-width:360px;margin:20px auto 0}
+.home-profile{display:flex;align-items:center;gap:12px;padding:8px 0 4px}
+.home-name{font-weight:800;font-size:1rem}
+.home-sub{font-size:.63rem;color:var(--tx2);margin-top:2px}
+.section-lbl{font-size:.56rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dm);padding:4px 0}
+.coming-soon{color:var(--or);font-size:.5rem;letter-spacing:.1em;margin-left:6px;background:rgba(255,123,58,.1);padding:2px 6px;border-radius:4px;border:1px solid rgba(255,123,58,.2)}
+.mp-teaser{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rad);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .15s;opacity:.7}
+.mp-teaser:hover{opacity:1;border-color:var(--bd2)}
+.coming-soon-badge{margin-left:auto;font-size:.55rem;font-weight:700;letter-spacing:.1em;color:var(--or);background:rgba(255,123,58,.1);border:1px solid rgba(255,123,58,.2);padding:4px 8px;border-radius:6px}
+
+/* GAME BAR */
+.gbar{display:flex;justify-content:space-between;align-items:center;padding:2px 0;gap:8px}
+.back-sm{background:none;border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);font-family:var(--ff);font-size:.68rem;font-weight:600;cursor:pointer;padding:5px 9px;white-space:nowrap}
+.back-sm:hover{border-color:var(--rd);color:var(--rd)}
+
+/* IMPOSTOR */
+.reveal-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rad);padding:28px 20px;text-align:center;margin-top:8px}
+.secret-word{font-size:2.2rem;font-weight:800;color:var(--cy);margin:12px 0;text-shadow:0 0 30px rgba(0,221,168,.3)}
+.imp-turn-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rad);padding:18px;text-align:center}
+.imp-scoreboard{display:flex;gap:6px;align-items:center}
+.imp-pip{width:28px;height:28px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;color:#fff;flex-shrink:0}
+.imp-pip.elim{background:var(--bg3);color:var(--dm);text-decoration:line-through}
+
+/* DIFFICULTY SUB LABEL */
+.df-sub{display:block;font-size:.5rem;font-weight:400;opacity:.7;text-transform:none;letter-spacing:0;margin-top:2px}
+
+/* MULTIPLAYER FEATURES */
+.mp-feature-list{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rad);padding:14px}
+.mp-feat{font-size:.78rem;padding:7px 0;border-bottom:1px solid var(--bd);color:var(--tx2)}
+.mp-feat:last-child{border-bottom:none}
+
+/* MODES - 4 items */
+.mode-1::after{background:var(--g1)}
+.mode-2::after{background:var(--g2)}
+.mode-3::after{background:var(--g3)}
+.mode-4::after{background:var(--g4)}
