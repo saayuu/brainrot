@@ -3,689 +3,737 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#0c0c18">
-<title>BLITZ ⚡</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0a0a16">
+<title>BRAINROT ⚡</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg:#0c0c18;--bg2:#131326;--bg3:#1a1a35;
---s1:rgba(25,25,55,.88);--s2:rgba(35,35,65,.75);
---brd:rgba(255,255,255,.06);--brd2:rgba(255,255,255,.12);
---tx:#eeeef5;--tx2:#9595b0;--dm:#4a4a6a;
---pk:#ff2d7b;--bl:#4d7dff;--cy:#00e0a0;--yl:#ffc53d;--pr:#9c5cff;--or:#ff7a3d;--rd:#ff3b3b;--gn:#2dd47a;
---g1:linear-gradient(135deg,#ff2d7b,#9c5cff);--g2:linear-gradient(135deg,#4d7dff,#00e0a0);--g3:linear-gradient(135deg,#ff7a3d,#ffc53d);--g4:linear-gradient(135deg,#9c5cff,#4d7dff);
---ff:'Space Grotesk',sans-serif;--fd:'Syne',sans-serif;
+  --bg:#0a0a16;--bg2:#11112a;--bg3:#181840;
+  --sf:rgba(20,20,50,.9);--sf2:rgba(30,30,60,.8);
+  --bd:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.14);
+  --tx:#ededf8;--tx2:#8888aa;--dm:#3d3d60;
+  --pk:#ff2d6a;--bl:#5b8cff;--cy:#00dda8;--yl:#ffc640;--pr:#a75fff;--or:#ff7b3a;--rd:#ff4040;--gn:#30d880;
+  --g1:linear-gradient(135deg,#ff2d6a,#a75fff);--g2:linear-gradient(135deg,#5b8cff,#00dda8);--g3:linear-gradient(135deg,#ff7b3a,#ffc640);
+  --ff:'Plus Jakarta Sans',sans-serif;--fm:'DM Mono',monospace;
 }
 body{background:var(--bg);color:var(--tx);font-family:var(--ff);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
-
-/* ANIMATED BG */
 .bgfx{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.bgfx .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.12;animation:drift 20s ease-in-out infinite}
-.bgfx .orb:nth-child(1){width:400px;height:400px;background:var(--pk);top:-100px;left:-100px;animation-delay:0s}
-.bgfx .orb:nth-child(2){width:350px;height:350px;background:var(--bl);bottom:-80px;right:-80px;animation-delay:-7s}
-.bgfx .orb:nth-child(3){width:300px;height:300px;background:var(--pr);top:50%;left:50%;animation-delay:-14s}
-@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-30px) scale(1.1)}50%{transform:translate(-20px,40px) scale(.95)}75%{transform:translate(30px,20px) scale(1.05)}}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.1;animation:drift 25s ease-in-out infinite}
+.orb:nth-child(1){width:500px;height:500px;background:#ff2d6a;top:-150px;left:-150px}
+.orb:nth-child(2){width:400px;height:400px;background:#5b8cff;bottom:-100px;right:-100px;animation-delay:-10s}
+.orb:nth-child(3){width:350px;height:350px;background:#a75fff;top:40%;left:40%;animation-delay:-18s}
+@keyframes drift{0%,100%{transform:translate(0,0)}33%{transform:translate(50px,-40px)}66%{transform:translate(-30px,50px)}}
 
-.app{max-width:640px;margin:0 auto;padding:16px;min-height:100vh;display:flex;flex-direction:column;position:relative;z-index:1}
-@media(min-width:700px){.app{padding:24px 32px}}
+.app{max-width:680px;margin:0 auto;padding:16px;min-height:100vh;position:relative;z-index:1}
+@media(min-width:720px){.app{padding:24px 40px}}
 
-.scr{display:none;flex-direction:column;gap:14px;flex:1;animation:pop .25s ease}
+.scr{display:none;flex-direction:column;gap:14px;animation:pop .25s ease}
 .scr.on{display:flex}
-@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* LOGO */
-.logo-wrap{text-align:center;padding:28px 0 8px}
-.logo-icon{font-size:2.8rem;margin-bottom:4px;display:block;filter:drop-shadow(0 0 20px rgba(255,45,123,.4))}
-.logo{font-family:var(--fd);font-size:clamp(2.4rem,8vw,3.6rem);font-weight:800;letter-spacing:.06em;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
-.logo-sub{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tx2);margin-top:2px}
-
-/* AVATAR */
-.av{border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.1)}
-.av-m{width:52px;height:52px;font-size:1.5rem}
-.av-l{width:80px;height:80px;font-size:2.6rem;border-width:3px}
-.av-s{width:34px;height:34px;font-size:1rem;border-width:1.5px}
-
-/* CARDS */
-.cd{background:var(--s1);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--brd);border-radius:18px;padding:18px}
+/* COMMON */
+.cd{background:var(--sf);backdrop-filter:blur(20px);border:1px solid var(--bd);border-radius:18px;padding:18px}
 .lbl{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tx2);margin-bottom:8px}
-
-/* GAME MODES */
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mode{background:var(--s1);border:1px solid var(--brd);border-radius:18px;padding:20px 14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;text-align:center}
-.mode::after{content:'';position:absolute;inset:0;border-radius:18px;opacity:0;transition:opacity .2s}
-.mode:nth-child(1)::after{background:var(--g1)}.mode:nth-child(2)::after{background:var(--g2)}.mode:nth-child(3)::after{background:var(--g3)}.mode:nth-child(4)::after{background:var(--g4)}
-.mode:hover::after{opacity:.08}.mode:active{transform:scale(.96)}
-.mode>*{position:relative;z-index:1}
-.mode-i{font-size:2.4rem;margin-bottom:8px;display:block}
-.mode-n{font-family:var(--fd);font-size:.85rem;font-weight:700;letter-spacing:.04em}
-.mode-d{font-size:.65rem;color:var(--tx2);margin-top:3px;line-height:1.4}
-
-/* BUTTONS */
-.btn{padding:15px 24px;border-radius:14px;border:none;font-family:var(--ff);font-size:.88rem;font-weight:700;letter-spacing:.03em;cursor:pointer;transition:all .12s;width:100%;text-transform:uppercase}
+.inp{width:100%;background:var(--bg2);border:2px solid var(--bd2);color:var(--tx);font-family:var(--ff);font-size:1rem;padding:14px 16px;border-radius:14px;outline:none;transition:border .15s}
+.inp:focus{border-color:var(--bl);box-shadow:0 0 0 4px rgba(91,140,255,.12)}
+.inp::placeholder{color:var(--dm)}
+.inp-code{font-family:var(--fm);font-size:1.6rem;text-align:center;letter-spacing:10px;text-transform:uppercase}
+.sel{width:100%;background:var(--bg2);border:2px solid var(--bd2);color:var(--tx);font-family:var(--ff);font-size:.88rem;padding:12px 14px;border-radius:12px;outline:none;appearance:none}
+.btn{padding:16px 24px;border-radius:14px;border:none;font-family:var(--ff);font-size:.88rem;font-weight:700;cursor:pointer;transition:all .12s;width:100%;text-transform:uppercase;letter-spacing:.02em}
 .btn:active{transform:scale(.97)}
-.btn-pk{background:var(--g1);color:#fff;box-shadow:0 6px 24px rgba(255,45,123,.25)}
-.btn-bl{background:var(--g2);color:#fff;box-shadow:0 6px 24px rgba(77,125,255,.25)}
-.btn-or{background:var(--g3);color:#111;box-shadow:0 6px 24px rgba(255,122,61,.25)}
-.btn-gh{background:transparent;border:1px solid var(--brd2);color:var(--tx2)}
-.btn-gh:hover{border-color:var(--bl);color:var(--bl)}
+.btn-pk{background:var(--g1);color:#fff;box-shadow:0 6px 24px rgba(255,45,106,.2)}
+.btn-bl{background:var(--g2);color:#fff;box-shadow:0 6px 24px rgba(91,140,255,.2)}
+.btn-or{background:var(--g3);color:#111;box-shadow:0 6px 24px rgba(255,123,58,.2)}
+.btn-gh{background:transparent;border:2px solid var(--bd2);color:var(--tx2)}
 .btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
 .btn-r{display:flex;gap:8px}.btn-r .btn{flex:1}
 .btn-s{padding:11px 16px;font-size:.75rem}
+.back{background:none;border:none;color:var(--tx2);font-family:var(--ff);font-size:.82rem;font-weight:600;cursor:pointer;padding:6px 0;display:flex;align-items:center;gap:4px}
+.back:hover{color:var(--tx)}
+.back::before{content:'←'}
 
-/* INPUTS */
-.inp{width:100%;background:var(--bg2);border:2px solid var(--brd2);color:var(--tx);font-family:var(--ff);font-size:1rem;padding:13px 16px;border-radius:12px;outline:none;transition:border .15s}
-.inp:focus{border-color:var(--bl);box-shadow:0 0 0 4px rgba(77,125,255,.12)}
-.inp::placeholder{color:var(--dm)}
-.sel{width:100%;background:var(--bg2);border:2px solid var(--brd2);color:var(--tx);font-family:var(--ff);font-size:.88rem;padding:12px 14px;border-radius:12px;outline:none;appearance:none;-webkit-appearance:none}
-.sel:focus{border-color:var(--bl)}
+/* AVATAR */
+.av{border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(255,255,255,.1);box-shadow:0 4px 16px rgba(0,0,0,.35)}
+.av-m{width:54px;height:54px;font-size:1.6rem}.av-l{width:80px;height:80px;font-size:2.6rem;border-width:3px}.av-s{width:34px;height:34px;font-size:1rem;border-width:1.5px}
 
-/* CHIPS - for category selection */
+/* MODES */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode{background:var(--sf);border:1px solid var(--bd);border-radius:18px;padding:20px 14px;cursor:pointer;transition:all .2s;text-align:center;position:relative;overflow:hidden}
+.mode::after{content:'';position:absolute;inset:0;border-radius:18px;opacity:0;transition:opacity .2s}
+.mode:nth-child(1)::after{background:var(--g1)}.mode:nth-child(2)::after{background:var(--g2)}.mode:nth-child(3)::after{background:var(--g3)}.mode:nth-child(4)::after{background:var(--g4)}
+.mode:hover::after,.mode:active::after{opacity:.1}
+.mode:active{transform:scale(.96)}
+.mode>*{position:relative;z-index:1}
+.mi{font-size:2.4rem;margin-bottom:8px;display:block}
+.mn{font-weight:800;font-size:.82rem;letter-spacing:.02em}
+.md{font-size:.62rem;color:var(--tx2);margin-top:3px;line-height:1.4}
+
+/* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{padding:8px 14px;border-radius:10px;border:1.5px solid var(--brd2);background:transparent;color:var(--tx2);font-family:var(--ff);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .15s}
-.chip:hover{border-color:var(--bl)}
+.chip{padding:8px 13px;border-radius:10px;border:1.5px solid var(--bd2);background:transparent;color:var(--tx2);font-family:var(--ff);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .12s}
 .chip.on{background:var(--bl);border-color:var(--bl);color:#fff}
 .chip:active{transform:scale(.95)}
 
-/* DIFFICULTY */
-.diff-row{display:flex;gap:6px}
-.diff{flex:1;padding:10px;border-radius:10px;border:2px solid var(--brd2);background:transparent;color:var(--tx2);font-family:var(--ff);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;transition:all .15s;text-align:center}
-.diff:hover{border-color:var(--bl)}
-.diff.on{color:#fff}
-.diff.easy.on{background:var(--gn);border-color:var(--gn)}
-.diff.med.on{background:var(--yl);border-color:var(--yl);color:#111}
-.diff.hard.on{background:var(--rd);border-color:var(--rd)}
+/* DIFF */
+.diffs{display:flex;gap:6px}
+.df{flex:1;padding:11px;border-radius:10px;border:2px solid var(--bd2);background:transparent;color:var(--tx2);font-family:var(--ff);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;text-align:center;transition:all .12s}
+.df.on{color:#fff}
+.df.ez.on{background:var(--gn);border-color:var(--gn)}.df.md.on{background:var(--yl);border-color:var(--yl);color:#111}.df.hd.on{background:var(--rd);border-color:var(--rd)}
 
-/* TOPBAR */
-.top{display:flex;align-items:center;gap:12px;padding:6px 0 14px}
-.top-info{flex:1}
-.top-name{font-family:var(--fd);font-size:1rem;font-weight:700}
-.top-sub{font-size:.65rem;color:var(--tx2)}
-.top-btns{display:flex;gap:6px}
-.ibtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--brd2);background:transparent;color:var(--tx2);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.ibtn:hover{border-color:var(--cy);color:var(--cy)}
+/* GAME UI */
+.gbar{display:flex;justify-content:space-between;align-items:center;padding:4px 0}
+.gbar-l{display:flex;align-items:center;gap:8px}
+.gbar-r{display:flex;align-items:center;gap:8px}
+.gbtn{width:34px;height:34px;border-radius:10px;border:1px solid var(--bd2);background:transparent;color:var(--tx2);font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.gbtn:hover{border-color:var(--rd);color:var(--rd)}
+.tbar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin:6px 0}
+.tf{height:100%;border-radius:2px;transition:width .4s linear}
+.tf-ok{background:var(--g2)}.tf-warn{background:var(--rd)}
 
-/* QUIZ GAME */
-.qbar{display:flex;justify-content:space-between;align-items:center;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx2)}
-.qn{color:var(--cy)}
-.tbar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:4px}
-.tf{height:100%;background:var(--g2);border-radius:2px;transition:width .3s linear}
-.qc{background:var(--s1);backdrop-filter:blur(24px);border:1px solid var(--brd);border-radius:18px;padding:24px;text-align:center}
-.qt{font-size:clamp(1rem,3vw,1.25rem);font-weight:600;line-height:1.5;margin-bottom:18px}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:360px){.opts{grid-template-columns:1fr}}
-.opt{background:var(--bg2);border:2px solid var(--brd2);color:var(--tx);font-family:var(--ff);font-size:.9rem;font-weight:600;padding:16px 12px;border-radius:14px;cursor:pointer;transition:all .12s;text-align:center;position:relative}
-.opt:hover:not(:disabled){border-color:var(--bl);background:rgba(77,125,255,.06)}
-.opt:active:not(:disabled){transform:scale(.96)}
-.opt.ok{background:rgba(45,212,122,.12);border-color:var(--gn);color:var(--gn);animation:pulse .4s}
-.opt.no{background:rgba(255,59,59,.1);border-color:var(--rd);color:var(--rd);animation:shk .3s}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
-@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.opt:disabled{cursor:default}
-.opt-l{position:absolute;top:4px;left:8px;font-size:.55rem;font-weight:800;letter-spacing:2px;opacity:.3}
+.qcard{background:var(--sf);backdrop-filter:blur(20px);border:1px solid var(--bd);border-radius:18px;padding:24px;text-align:center}
+.qnum{font-family:var(--fm);font-size:.65rem;font-weight:500;color:var(--tx2);letter-spacing:.08em}
+.qtxt{font-size:clamp(1.05rem,3vw,1.3rem);font-weight:700;line-height:1.45;margin:14px 0 18px}
+.ans-row{display:flex;gap:8px}
+.ans-inp{flex:1;background:var(--bg2);border:2px solid var(--bd2);color:var(--tx);font-family:var(--ff);font-size:1.1rem;font-weight:600;padding:16px;border-radius:14px;outline:none;text-align:center}
+.ans-inp:focus{border-color:var(--cy)}
+.ans-btn{width:56px;border-radius:14px;border:none;font-size:1.2rem;cursor:pointer;transition:all .12s}
+.ans-btn:active{transform:scale(.95)}
+.ans-pk{background:var(--g1);color:#fff}
+.skip-btn{margin-top:8px;background:none;border:none;color:var(--dm);font-family:var(--ff);font-size:.75rem;font-weight:600;cursor:pointer;padding:8px}
+.skip-btn:hover{color:var(--tx2)}
 
-/* SCORE DISPLAY */
-.sc-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
-.sc-left{display:flex;align-items:center;gap:8px}
-.sc-label{font-size:.65rem;color:var(--tx2);font-weight:600}
-.sc-val{font-family:var(--fd);font-size:1.2rem;font-weight:800}
-.streak{color:var(--yl)}
+.score-pill{font-family:var(--fm);font-size:.9rem;font-weight:500;color:var(--cy);display:flex;align-items:center;gap:4px}
+.streak-badge{background:var(--or);color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:6px;margin-left:4px}
 
 /* FEEDBACK */
-.fbo{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;pointer-events:none}
-.fbt{font-family:var(--fd);font-size:clamp(3rem,12vw,6rem);font-weight:800;opacity:0;transform:scale(.4);transition:all .3s cubic-bezier(.34,1.56,.64,1)}
-.fbt.show{opacity:1;transform:scale(1)}
-.fbt.y{color:var(--gn);text-shadow:0 0 60px rgba(45,212,122,.6)}
-.fbt.n{color:var(--rd);text-shadow:0 0 60px rgba(255,59,59,.6)}
+.fb-wrap{text-align:center;padding:12px 0;animation:pop .2s ease}
+.fb-icon{font-size:2rem;margin-bottom:4px}
+.fb-answer{font-size:1rem;font-weight:700;margin-top:4px}
+.fb-ok .fb-answer{color:var(--gn)}.fb-no .fb-answer{color:var(--rd)}
 
 /* RESULTS */
-.res{background:var(--s1);backdrop-filter:blur(24px);border:1px solid var(--brd);border-radius:20px;padding:28px;text-align:center}
-.res-icon{font-size:3rem;margin-bottom:8px}
-.res-title{font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:800;margin-bottom:4px}
-.res-score{font-family:var(--fd);font-size:clamp(2rem,7vw,3rem);font-weight:800;background:var(--g2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:8px 0}
+.res{background:var(--sf);backdrop-filter:blur(20px);border:1px solid var(--bd);border-radius:20px;padding:28px;text-align:center}
+.res-i{font-size:3rem;margin-bottom:8px}
+.res-t{font-weight:800;font-size:clamp(1.3rem,4vw,1.8rem);margin-bottom:4px}
+.res-sc{font-family:var(--fm);font-size:clamp(2rem,7vw,3rem);font-weight:500;color:var(--cy);margin:8px 0}
 .res-sub{font-size:.75rem;color:var(--tx2);margin-bottom:18px}
 
 /* STATS */
 .sg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sb{background:var(--bg2);border:1px solid var(--brd);border-radius:14px;padding:16px;text-align:center}
-.sv{font-family:var(--fd);font-size:1.8rem;font-weight:800;line-height:1}
+.sb{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:16px;text-align:center}
+.sv{font-family:var(--fm);font-size:1.8rem;font-weight:500;line-height:1}
 .sl{font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tx2);margin-top:5px}
 
-/* GUESS GAME */
-.clue-c{background:var(--bg2);border:1px solid var(--brd);border-radius:14px;padding:16px;text-align:center;margin-bottom:6px}
+/* GUESS */
+.clue-c{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:14px;text-align:center;margin-bottom:6px}
 .clue-n{font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2);margin-bottom:4px}
-.clue-t{font-size:1.05rem;font-weight:600;line-height:1.4}
-.strikes{display:flex;gap:8px;justify-content:center;margin:10px 0}
-.stk{width:24px;height:24px;border-radius:50%;border:2px solid var(--dm);font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.stk.x{border-color:var(--rd);color:var(--rd);background:rgba(255,59,59,.1)}
+.clue-t{font-size:1rem;font-weight:600;line-height:1.4}
+.strikes{display:flex;gap:8px;justify-content:center;margin:8px 0}
+.stk{width:26px;height:26px;border-radius:50%;border:2px solid var(--dm);font-size:.75rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.stk.x{border-color:var(--rd);color:var(--rd);background:rgba(255,64,64,.1)}
 
 /* NAME 10 */
-.n10-cat{font-family:var(--fd);font-size:1.2rem;font-weight:800;text-align:center;margin-bottom:6px}
-.n10-timer{font-family:var(--fd);font-size:3rem;font-weight:800;text-align:center;line-height:1}
-.n10-count{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2);text-align:center;margin:6px 0}
+.n10-title{font-weight:800;font-size:1.1rem;text-align:center}
+.n10-timer{font-family:var(--fm);font-size:3.5rem;font-weight:500;text-align:center;line-height:1;margin:4px 0}
+.n10-cnt{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2);text-align:center}
 .n10-list{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0}
-.n10-chip{padding:7px 14px;border-radius:10px;background:rgba(0,224,160,.1);border:1px solid rgba(0,224,160,.2);color:var(--cy);font-size:.82rem;font-weight:600}
+.n10-ok{padding:7px 13px;border-radius:10px;background:rgba(0,221,168,.1);border:1px solid rgba(0,221,168,.2);color:var(--cy);font-size:.82rem;font-weight:600}
+.n10-no{padding:7px 13px;border-radius:10px;background:rgba(255,64,64,.1);border:1px solid rgba(255,64,64,.2);color:var(--rd);font-size:.82rem;font-weight:600;text-decoration:line-through}
 
-.error{background:rgba(255,59,59,.1);border:1px solid rgba(255,59,59,.2);color:var(--rd);padding:10px 14px;border-radius:10px;font-size:.8rem;text-align:center}
-.hint{text-align:center;color:var(--tx2);font-size:.7rem;margin-top:4px}
-.back{background:none;border:none;color:var(--tx2);font-family:var(--ff);font-size:.8rem;cursor:pointer;padding:4px 0;text-align:left;font-weight:600}
-.back:hover{color:var(--tx)}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--cy);color:var(--bg);padding:10px 24px;border-radius:12px;font-weight:700;font-size:.82rem;z-index:200;animation:ti .3s,to .3s 1.5s forwards}
-@keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-@keyframes to{to{opacity:0;transform:translateX(-50%) translateY(16px)}}
-.room-code{font-family:var(--fd);font-size:clamp(2rem,9vw,3rem);font-weight:800;text-align:center;letter-spacing:10px;padding:16px;background:var(--bg2);border-radius:16px;border:2px dashed var(--dm);cursor:pointer;color:var(--cy)}
+/* MP */
+.room-c{font-family:var(--fm);font-size:clamp(2rem,9vw,3rem);text-align:center;letter-spacing:10px;padding:16px;background:var(--bg2);border-radius:16px;border:2px dashed var(--dm);cursor:pointer;color:var(--cy)}
 .plist{display:flex;flex-direction:column;gap:6px}
-.pr{display:flex;align-items:center;gap:10px;background:var(--bg2);border-radius:12px;padding:10px 14px;border:1px solid var(--brd)}
-.pr-n{font-weight:600;font-size:.9rem;flex:1}
-.tag{font-size:.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:6px}
+.pr{display:flex;align-items:center;gap:10px;background:var(--bg2);border-radius:12px;padding:10px 14px;border:1px solid var(--bd)}
+.pr-n{font-weight:700;font-size:.9rem;flex:1}
+.tag{font-size:.5rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:6px}
 .scs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
-.sc{background:var(--s1);border:2px solid var(--brd);border-radius:12px;padding:8px 12px;text-align:center;flex:1;min-width:65px;transition:all .2s;position:relative}
+.sc{background:var(--sf);border:2px solid var(--bd);border-radius:12px;padding:8px 12px;text-align:center;flex:1;min-width:65px;transition:all .2s;position:relative}
 .sc.on{transform:translateY(-2px)}
-.sc-nm{font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
-.sc-pt{font-family:var(--fd);font-size:1.4rem;font-weight:800;line-height:1}
-.sc-ar{position:absolute;top:1px;right:5px;font-size:.55rem;animation:bob .6s ease-in-out infinite alternate}
-@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-2px)}}
+.sc-nm{font-size:.5rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.sc-pt{font-family:var(--fm);font-size:1.4rem;line-height:1}
 .wait{text-align:center;color:var(--tx2);padding:20px;font-size:.85rem}
 .dots{display:inline-flex;gap:3px;margin-top:6px}
 .dot{width:5px;height:5px;background:var(--cy);border-radius:50%;animation:db 1.2s ease infinite}
 .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
 @keyframes db{0%,80%,100%{transform:scale(.5);opacity:.3}40%{transform:scale(1);opacity:1}}
+.hint{text-align:center;color:var(--tx2);font-size:.7rem;margin-top:4px}
+.error{background:rgba(255,64,64,.08);border:1px solid rgba(255,64,64,.2);color:var(--rd);padding:10px 14px;border-radius:10px;font-size:.8rem;text-align:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--cy);color:var(--bg);padding:10px 24px;border-radius:12px;font-weight:700;font-size:.82rem;z-index:200;animation:ti .3s,to .3s 1.5s forwards}
+@keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes to{to{opacity:0;transform:translateX(-50%) translateY(16px)}}
 </style>
 </head>
 <body>
 <div class="bgfx"><div class="orb"></div><div class="orb"></div><div class="orb"></div></div>
-<div class="fbo"><div class="fbt" id="fb"></div></div>
-<div class="app">
+<div class="app" id="app"></div>
 
-<!-- AUTH -->
-<div class="scr on" id="authScr">
-  <div class="logo-wrap">
-    <span class="logo-icon">⚡</span>
-    <div class="logo">BLITZ</div>
-    <div class="logo-sub">Train your brain · Challenge friends</div>
-  </div>
-  <div class="cd">
-    <div class="lbl">What should we call you?</div>
-    <input class="inp" id="aName" type="text" placeholder="Your name..." maxlength="12">
-    <div class="lbl" style="margin-top:12px">Preferred language</div>
-    <select class="sel" id="aLang"><option value="english">🇬🇧 English</option><option value="french">🇫🇷 Français</option><option value="arabic">🇲🇦 العربية</option></select>
-  </div>
-  <button class="btn btn-pk" onclick="mkProfile()">Let's Go ⚡</button>
-  <div id="aErr"></div>
-</div>
+<script>
+/* ========== CONFIG ========== */
+const FACES=['😎','🤓','😤','🥶','🔥','💀','👻','🤖','🦊','🐱','🦁','🐸','🎃','👽','🧠','💎','⚡','🌙','🦋','🐙','🍕','🎯','🎲','🎭'];
+const AVB=['linear-gradient(135deg,#ff2d6a,#a75fff)','linear-gradient(135deg,#5b8cff,#00dda8)','linear-gradient(135deg,#ff7b3a,#ffc640)','linear-gradient(135deg,#a75fff,#5b8cff)','linear-gradient(135deg,#ff4040,#ff7b3a)','linear-gradient(135deg,#00dda8,#5b8cff)','linear-gradient(135deg,#ffc640,#ff2d6a)','linear-gradient(135deg,#30d880,#00dda8)'];
+const rAv=()=>({f:FACES[Math.floor(Math.random()*FACES.length)],b:AVB[Math.floor(Math.random()*AVB.length)]});
 
-<!-- HOME -->
-<div class="scr" id="homeScr">
-  <div class="top">
-    <div class="av av-m" id="hAv"></div>
-    <div class="top-info"><div class="top-name" id="hNm"></div><div class="top-sub" id="hSub"></div></div>
-    <div class="top-btns"><button class="ibtn" onclick="showStats()" title="Stats">📊</button></div>
-  </div>
-  <div class="modes">
-    <div class="mode" onclick="pick('trivia')"><span class="mode-i">⚡</span><div class="mode-n">Trivia</div><div class="mode-d">20+ categories · 3 difficulties</div></div>
-    <div class="mode" onclick="pick('guess')"><span class="mode-i">🔍</span><div class="mode-n">Guess It</div><div class="mode-d">Clues & deduction · 3 strikes</div></div>
-    <div class="mode" onclick="pick('n10')"><span class="mode-i">🔟</span><div class="mode-n">Name 10</div><div class="mode-d">Beat the clock</div></div>
-    <div class="mode" onclick="pick('mp')"><span class="mode-i">👥</span><div class="mode-n">Multiplayer</div><div class="mode-d">Host or join · Real-time</div></div>
-  </div>
-</div>
+const CATS=['Mixed','General Knowledge','Geography','Science','History','Pop Culture','Animals','Food & Drink','Sports','Movies & TV','Music','Art & Literature','Technology','Space','Human Body','Languages','Finance','World Flags','World Capitals','Landmarks','Math','Fashion','Psychology','Mythology','Nature','Cars & Transport'];
 
-<!-- STATS -->
-<div class="scr" id="statsScr">
-  <button class="back" onclick="home()">← Back</button>
-  <div style="text-align:center"><div class="av av-l" id="sAv" style="margin:0 auto"></div><div style="font-family:var(--fd);font-size:1.2rem;font-weight:800;margin-top:10px" id="sNm"></div></div>
-  <div class="sg" id="sG"></div>
-  <button class="btn btn-gh btn-s" onclick="resetMe()">Reset Stats</button>
-</div>
+/* ========== STATE ========== */
+let me={id:'u'+Math.random().toString(36).substr(2,8),name:'',lang:'english',av:rAv(),games:0,wins:0,correct:0,total:0};
+let gState={};
 
-<!-- TRIVIA SETUP -->
-<div class="scr" id="tSetup">
-  <button class="back" onclick="home()">← Back</button>
-  <div class="cd">
-    <div class="lbl">Category</div>
-    <div class="chips" id="catChips"></div>
-  </div>
-  <div class="cd">
-    <div class="lbl">Difficulty</div>
-    <div class="diff-row">
-      <button class="diff easy on" onclick="setDiff(this,'easy')">Easy</button>
-      <button class="diff med" onclick="setDiff(this,'med')">Medium</button>
-      <button class="diff hard" onclick="setDiff(this,'hard')">Hard</button>
+/* ========== STORAGE ========== */
+const LS={
+  get(k){const v=localStorage.getItem(k);return v?JSON.parse(v):null;},
+  set(k,v){localStorage.setItem(k,JSON.stringify(v));}
+};
+
+function loadMe(){const d=LS.get('br-me');if(d){me={...me,...d};return true;}return false;}
+function saveMe(){LS.set('br-me',{id:me.id,name:me.name,lang:me.lang,av:me.av,games:me.games,wins:me.wins,correct:me.correct,total:me.total});}
+
+/* ========== RENDER ENGINE ========== */
+const $=id=>document.getElementById(id);
+const app=$('app');
+function render(html){app.innerHTML=html;app.className='scr on';}
+
+/* ========== SCREENS ========== */
+
+function authScreen(){
+  render(`
+    <div style="text-align:center;padding:32px 0 12px">
+      <div style="font-size:3rem;margin-bottom:6px">🧠</div>
+      <div style="font-weight:800;font-size:clamp(2.2rem,9vw,3.2rem);letter-spacing:.04em;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1">BRAINROT</div>
+      <div style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tx2);margin-top:4px">the cure is knowledge</div>
     </div>
-  </div>
-  <div class="cd">
-    <div class="lbl">Questions</div>
-    <select class="sel" id="tNum"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option></select>
-  </div>
-  <button class="btn btn-pk" id="soloBtn" onclick="startSolo()">Play ⚡</button>
-  <div id="soloSt"></div>
-</div>
-
-<!-- SOLO GAME -->
-<div class="scr" id="soloScr">
-  <div class="sc-row">
-    <div class="sc-left"><span class="sc-label">Q</span><span class="sc-val"><span id="sqN">1</span>/<span id="sqT">10</span></span></div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <span class="sc-val" style="color:var(--cy)" id="sqSc">⚡ 0</span>
-      <button class="ibtn" onclick="quitSolo()" title="Quit" style="width:32px;height:32px;font-size:.8rem">✕</button>
+    <div class="cd">
+      <div class="lbl">Your name</div>
+      <input class="inp" id="aName" type="text" placeholder="Enter name..." maxlength="12">
+      <div class="lbl" style="margin-top:12px">Language</div>
+      <select class="sel" id="aLang"><option value="english">🇬🇧 English</option><option value="french">🇫🇷 Français</option><option value="arabic">🇲🇦 العربية</option></select>
     </div>
-  </div>
-  <div class="tbar"><div class="tf" id="sqF" style="width:0%"></div></div>
-  <div id="sqA"></div>
-</div>
+    <button class="btn btn-pk" onclick="doAuth()">Enter 🧠</button>
+    <div id="aErr"></div>`);
+}
 
-<!-- SOLO RESULTS -->
-<div class="scr" id="soloRes"></div>
+function doAuth(){
+  const n=$('aName').value.trim();
+  if(!n){$('aErr').innerHTML='<div class="error">Enter a name</div>';return;}
+  me.name=n;me.lang=$('aLang').value;me.av=rAv();saveMe();homeScreen();
+}
 
-<!-- GUESS SETUP -->
-<div class="scr" id="gSetup">
-  <button class="back" onclick="home()">← Back</button>
-  <div class="cd" style="text-align:center">
-    <div style="font-size:2.4rem;margin-bottom:6px">🔍</div>
-    <div style="font-family:var(--fd);font-size:1rem;font-weight:800">GUESS IT</div>
-    <div style="font-size:.75rem;color:var(--tx2);margin-top:4px;line-height:1.5">Get clues one at a time. Guess the answer before 3 strikes!</div>
-  </div>
-  <div class="cd">
-    <div class="lbl">Topic</div>
-    <div class="chips" id="gChips"></div>
-  </div>
-  <button class="btn btn-bl" onclick="startGuess()">Start 🔍</button>
-</div>
+function homeScreen(){
+  const pct=me.total>0?Math.round(me.correct/me.total*100):0;
+  render(`
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 0 16px">
+      <div class="av av-m" style="background:${me.av.b}">${me.av.f}</div>
+      <div style="flex:1"><div style="font-weight:800;font-size:1rem">${me.name}</div><div style="font-size:.65rem;color:var(--tx2)">${me.games>0?me.games+' games · '+pct+'% accuracy':'Ready to play'}</div></div>
+      <button class="gbtn" onclick="statsScreen()" title="Stats">📊</button>
+    </div>
+    <div class="modes">
+      <div class="mode" onclick="triviaSetup()"><span class="mi">⚡</span><div class="mn">Trivia</div><div class="md">Type your answer · 25+ categories</div></div>
+      <div class="mode" onclick="guessSetup()"><span class="mi">🔍</span><div class="mn">Guess It</div><div class="md">Clues & deduction · 3 strikes</div></div>
+      <div class="mode" onclick="n10Setup()"><span class="mi">🔟</span><div class="mn">Name 10</div><div class="md">Beat the clock · validated</div></div>
+      <div class="mode" onclick="mpMenu()"><span class="mi">👥</span><div class="mn">Multiplayer</div><div class="md">Live trivia · type to win</div></div>
+    </div>`);
+}
 
-<!-- GUESS GAME -->
-<div class="scr" id="guessScr">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <span style="font-family:var(--fd);font-size:.8rem;font-weight:700" id="gTopicLabel"></span>
-    <div class="strikes" id="gStr"></div>
-    <button class="ibtn" style="width:30px;height:30px;font-size:.7rem" onclick="home()">✕</button>
-  </div>
-  <div id="gClues"></div>
-  <div style="display:flex;gap:8px">
-    <input class="inp" id="gInp" type="text" placeholder="Your guess..." style="flex:1" onkeydown="if(event.key==='Enter')subGuess()">
-    <button class="btn btn-bl" style="width:auto;padding:12px 20px;font-size:1.1rem" onclick="subGuess()">→</button>
-  </div>
-  <button class="btn btn-gh btn-s" onclick="revealClue()" id="gNext">Next Clue 💡</button>
-  <div id="gFb"></div>
-</div>
+function statsScreen(){
+  const pct=me.total>0?Math.round(me.correct/me.total*100):0;
+  render(`
+    <button class="back" onclick="homeScreen()">Back</button>
+    <div style="text-align:center"><div class="av av-l" style="background:${me.av.b};margin:0 auto">${me.av.f}</div><div style="font-weight:800;font-size:1.2rem;margin-top:10px">${me.name}</div></div>
+    <div class="sg">
+      <div class="sb"><div class="sv" style="color:var(--pk)">${me.games}</div><div class="sl">Games</div></div>
+      <div class="sb"><div class="sv" style="color:var(--yl)">${me.wins}</div><div class="sl">Wins</div></div>
+      <div class="sb"><div class="sv" style="color:var(--cy)">${pct}%</div><div class="sl">Accuracy</div></div>
+      <div class="sb"><div class="sv" style="color:var(--bl)">${me.correct}</div><div class="sl">Correct</div></div>
+    </div>
+    <button class="btn btn-gh btn-s" onclick="me.games=0;me.wins=0;me.correct=0;me.total=0;saveMe();statsScreen()">Reset Stats</button>`);
+}
 
-<!-- NAME 10 SETUP -->
-<div class="scr" id="n10Setup">
-  <button class="back" onclick="home()">← Back</button>
-  <div class="cd" style="text-align:center">
-    <div style="font-size:2.4rem;margin-bottom:6px">🔟</div>
-    <div style="font-family:var(--fd);font-size:1rem;font-weight:800">NAME 10</div>
-    <div style="font-size:.75rem;color:var(--tx2);margin-top:4px">Random category. 60 seconds. Go!</div>
-  </div>
-  <button class="btn btn-or" onclick="startN10()">Go! 🔟</button>
-</div>
+/* ========== TRIVIA ========== */
+let tCat='Mixed',tDiff='easy',tQs=[],tIdx=0,tSc=0,tStrk=0,tTimer=null,tTime=0;
 
-<!-- NAME 10 GAME -->
-<div class="scr" id="n10Scr">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <div class="n10-cat" id="n10Cat" style="flex:1;text-align:left;font-size:1rem"></div>
-    <button class="ibtn" style="width:30px;height:30px;font-size:.7rem" onclick="endN10(false)">✕</button>
-  </div>
-  <div class="n10-timer" id="n10Tmr">60</div>
-  <div class="n10-count" id="n10Cnt">0 / 10</div>
-  <div class="n10-list" id="n10Lst"></div>
-  <div style="display:flex;gap:8px">
-    <input class="inp" id="n10Inp" type="text" placeholder="Type answer..." style="flex:1" onkeydown="if(event.key==='Enter')subN10()">
-    <button class="btn btn-or" style="width:auto;padding:12px 20px;font-size:1.1rem" onclick="subN10()">+</button>
-  </div>
-</div>
-<div class="scr" id="n10Res"></div>
-
-<!-- MP MENU -->
-<div class="scr" id="mpMenu">
-  <button class="back" onclick="home()">← Back</button>
-  <div class="btn-r"><button class="btn btn-pk" onclick="hostMP()">Host Room</button><button class="btn btn-bl" onclick="togJoin()">Join Room</button></div>
-  <div id="joinBox" style="display:none"><div class="cd"><div class="lbl">Room Code</div><input class="inp" id="mpCode" type="text" placeholder="ABCD" maxlength="4" style="text-transform:uppercase;letter-spacing:8px;font-size:1.4rem;text-align:center;font-family:var(--fd);font-weight:800"><button class="btn btn-bl btn-s" style="margin-top:8px" onclick="joinMP()">Join</button></div></div>
-  <div id="mpErr"></div>
-</div>
-
-<!-- LOBBY -->
-<div class="scr" id="lobbyScr">
-  <div class="cd"><div class="lbl">Room Code — Tap to Copy</div><div class="room-code" id="rcD" onclick="cpRC()"></div><div class="hint">Share with friends</div></div>
-  <div class="cd"><div class="lbl">Players</div><div class="plist" id="lobP"></div></div>
-  <div id="hUI" style="display:none">
-    <div class="cd"><div class="lbl">Settings</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <div style="flex:1;min-width:80px"><div class="lbl">Questions</div><select class="sel" id="mQ"><option value="5">5</option><option value="10" selected>10</option></select></div>
-        <div style="flex:1;min-width:80px"><div class="lbl">Timer</div><select class="sel" id="mT"><option value="0">Off</option><option value="20" selected>20s</option></select></div>
-        <div style="flex:1;min-width:80px"><div class="lbl">Category</div><select class="sel" id="mC"><option value="general">General</option><option value="geography">Geography</option></select></div>
+function triviaSetup(){
+  render(`
+    <button class="back" onclick="homeScreen()">Back</button>
+    <div class="cd">
+      <div class="lbl">Category</div>
+      <div class="chips">${CATS.map(c=>`<button class="chip ${c===tCat?'on':''}" onclick="tCat='${c}';triviaSetup()">${c}</button>`).join('')}</div>
+    </div>
+    <div class="cd">
+      <div class="lbl">Difficulty</div>
+      <div class="diffs">
+        <button class="df ez ${tDiff==='easy'?'on':''}" onclick="tDiff='easy';triviaSetup()">Easy</button>
+        <button class="df md ${tDiff==='medium'?'on':''}" onclick="tDiff='medium';triviaSetup()">Medium</button>
+        <button class="df hd ${tDiff==='hard'?'on':''}" onclick="tDiff='hard';triviaSetup()">Hard</button>
       </div>
     </div>
-    <button class="btn btn-pk" id="mpSBtn" onclick="startMPGame()">Start ⚡</button>
-  </div>
-  <div id="gUI" style="display:none"><div class="wait">Waiting for host...<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div></div>
-</div>
-
-<!-- MP GAME -->
-<div class="scr" id="mpGScr">
-  <div class="scs" id="mpScs"></div>
-  <div class="qbar"><span>Q <span class="qn" id="mpQN">1</span>/<span id="mpQT">10</span></span><span id="mpTD"></span></div>
-  <div class="tbar"><div class="tf" id="mpTF" style="width:100%"></div></div>
-  <div id="mpQA"></div>
-</div>
-<div class="scr" id="mpRes"><div class="res" id="mpRC"></div></div>
-
-</div>
-<script>
-/* ====== AVATARS ====== */
-const FACES=['😎','🤓','😤','🥶','🔥','💀','👻','🤖','🦊','🐱','🦁','🐸','🎃','👽','🧠','💎','⚡','🌙','🦋','🐙'];
-const AVB=['linear-gradient(135deg,#ff2d7b,#9c5cff)','linear-gradient(135deg,#4d7dff,#00e0a0)','linear-gradient(135deg,#ff7a3d,#ffc53d)','linear-gradient(135deg,#9c5cff,#4d7dff)','linear-gradient(135deg,#ff3b3b,#ff7a3d)','linear-gradient(135deg,#00e0a0,#4d7dff)','linear-gradient(135deg,#ffc53d,#ff2d7b)','linear-gradient(135deg,#2dd47a,#00e0a0)'];
-const rAv=()=>({f:FACES[Math.floor(Math.random()*FACES.length)],b:AVB[Math.floor(Math.random()*AVB.length)]});
-const setAv=(el,av,c='')=>{el.className='av '+c;el.style.background=av.b;el.textContent=av.f;};
-
-/* ====== STORAGE ====== */
-const S={
-  async get(k,sh){const key=sh?'sh:'+k:k;const v=localStorage.getItem(key);return v?{value:v}:null;},
-  async set(k,v,sh){const key=sh?'sh:'+k:k;localStorage.setItem(key,typeof v==='string'?v:JSON.stringify(v));return{key:k,value:v};}
-};
-
-let me={id:'u'+Math.random().toString(36).substr(2,8),name:'',lang:'english',av:rAv(),games:0,wins:0,correct:0,total:0};
-
-async function loadMe(){try{const r=await S.get('bz-me');if(r){me={...me,...JSON.parse(r.value)};return true;}}catch(e){}return false;}
-async function saveMe(){await S.set('bz-me',JSON.stringify({id:me.id,name:me.name,lang:me.lang,av:me.av,games:me.games,wins:me.wins,correct:me.correct,total:me.total}));}
-
-function show(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');}
-function home(){show('homeScr');renderHome();}
-
-async function mkProfile(){
-  const n=document.getElementById('aName').value.trim();
-  if(!n){document.getElementById('aErr').innerHTML='<div class="error">Enter a name</div>';return;}
-  me.name=n;me.lang=document.getElementById('aLang').value;me.av=rAv();
-  await saveMe();home();
+    <div class="cd">
+      <div class="lbl">Questions</div>
+      <select class="sel" id="tNum"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option></select>
+    </div>
+    <button class="btn btn-pk" id="tBtn" onclick="startTrivia()">Play ⚡</button>
+    <div id="tSt"></div>`);
 }
 
-function renderHome(){
-  setAv(document.getElementById('hAv'),me.av,'av-m');
-  document.getElementById('hNm').textContent=me.name;
-  const pct=me.total>0?Math.round(me.correct/me.total*100):0;
-  document.getElementById('hSub').textContent=me.games>0?`${me.games} games · ${pct}% accuracy`:'Ready to play';
-}
-
-function showStats(){
-  show('statsScr');setAv(document.getElementById('sAv'),me.av,'av-l');
-  document.getElementById('sNm').textContent=me.name;
-  const pct=me.total>0?Math.round(me.correct/me.total*100):0;
-  document.getElementById('sG').innerHTML=`
-    <div class="sb"><div class="sv" style="color:var(--pk)">${me.games}</div><div class="sl">Games</div></div>
-    <div class="sb"><div class="sv" style="color:var(--yl)">${me.wins}</div><div class="sl">Wins</div></div>
-    <div class="sb"><div class="sv" style="color:var(--cy)">${pct}%</div><div class="sl">Accuracy</div></div>
-    <div class="sb"><div class="sv" style="color:var(--bl)">${me.correct}</div><div class="sl">Correct</div></div>`;
-}
-async function resetMe(){me.games=0;me.wins=0;me.correct=0;me.total=0;await saveMe();showStats();}
-
-function pick(m){if(m==='trivia'){show('tSetup');initCats();}else if(m==='guess'){show('gSetup');initGCats();}else if(m==='n10')show('n10Setup');else if(m==='mp')show('mpMenu');}
-
-/* ====== CATEGORIES ====== */
-const CATS=['General Knowledge','Geography','Science','History','Pop Culture','Animals','Food & Drink','Sports','Movies & TV','Music','Art & Literature','Technology','Space & Astronomy','Human Body','Languages','Finance','World Flags','World Capitals','Landmarks','Math & Numbers','Fashion','Psychology','Mythology','Nature','Cars & Transport'];
-let selCat='General Knowledge';
-
-function initCats(){
-  document.getElementById('catChips').innerHTML=CATS.map(c=>`<button class="chip ${c===selCat?'on':''}" onclick="pickCat(this,'${c}')">${c}</button>`).join('');
-}
-function pickCat(el,c){selCat=c;document.querySelectorAll('#catChips .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');}
-
-let selDiff='easy';
-function setDiff(el,d){selDiff=d;document.querySelectorAll('.diff').forEach(x=>x.classList.remove('on'));el.classList.add('on');}
-
-/* ====== FALLBACK Qs ====== */
-const FB=[
-  {question:"What is the capital of Morocco?",options:["Casablanca","Rabat","Marrakech","Fez"],correct:1},
-  {question:"Which planet is closest to the sun?",options:["Venus","Mercury","Mars","Earth"],correct:1},
-  {question:"What is the chemical symbol for gold?",options:["Ag","Fe","Au","Cu"],correct:2},
-  {question:"What is the fastest land animal?",options:["Lion","Cheetah","Leopard","Gazelle"],correct:1},
-  {question:"What is the smallest country by area?",options:["Monaco","Vatican City","San Marino","Nauru"],correct:1},
-  {question:"What is the longest river in the world?",options:["Amazon","Nile","Yangtze","Mississippi"],correct:1},
-  {question:"Who painted the Mona Lisa?",options:["Picasso","Da Vinci","Michelangelo","Raphael"],correct:1},
-  {question:"What is the boiling point of water?",options:["90°C","100°C","110°C","80°C"],correct:1},
-  {question:"What is the hardest natural substance?",options:["Gold","Diamond","Iron","Quartz"],correct:1},
-  {question:"What language is spoken in Brazil?",options:["Spanish","Portuguese","French","English"],correct:1},
-  {question:"What is the capital of Japan?",options:["Osaka","Kyoto","Tokyo","Nagoya"],correct:2},
-  {question:"How many continents are there?",options:["5","6","7","8"],correct:2},
-  {question:"What year did the Titanic sink?",options:["1905","1912","1920","1898"],correct:1},
-  {question:"What is the capital of Australia?",options:["Sydney","Melbourne","Canberra","Perth"],correct:2},
-  {question:"What is the largest ocean?",options:["Atlantic","Indian","Arctic","Pacific"],correct:3},
-  {question:"What is the currency of Japan?",options:["Yuan","Won","Yen","Rupee"],correct:2},
-  {question:"Who wrote Romeo & Juliet?",options:["Dickens","Shakespeare","Austen","Wilde"],correct:1},
-  {question:"What is the largest desert?",options:["Sahara","Antarctic","Arabian","Gobi"],correct:1},
-  {question:"How many bones in an adult human body?",options:["196","206","216","186"],correct:1},
-  {question:"What is the most populous country?",options:["China","India","USA","Indonesia"],correct:1},
+const TRIVIA_BANK=[
+  {q:"What is the capital of France?",a:"paris",cat:"Geography"},
+  {q:"What planet is known as the Red Planet?",a:"mars",cat:"Space"},
+  {q:"What is the chemical symbol for gold?",a:"au",cat:"Science"},
+  {q:"What is the largest ocean?",a:"pacific",cat:"Geography"},
+  {q:"Who painted the Mona Lisa?",a:"da vinci",cat:"Art & Literature"},
+  {q:"What is the capital of Japan?",a:"tokyo",cat:"Geography"},
+  {q:"How many bones in an adult human body?",a:"206",cat:"Human Body"},
+  {q:"What year did the Titanic sink?",a:"1912",cat:"History"},
+  {q:"What is the smallest country in the world?",a:"vatican",cat:"Geography"},
+  {q:"What is the hardest natural substance?",a:"diamond",cat:"Science"},
+  {q:"What language is spoken in Brazil?",a:"portuguese",cat:"Languages"},
+  {q:"What is the fastest land animal?",a:"cheetah",cat:"Animals"},
+  {q:"What is the longest river in the world?",a:"nile",cat:"Geography"},
+  {q:"What is the capital of Australia?",a:"canberra",cat:"Geography"},
+  {q:"What is the boiling point of water in Celsius?",a:"100",cat:"Science"},
+  {q:"Who wrote Romeo and Juliet?",a:"shakespeare",cat:"Art & Literature"},
+  {q:"What is the currency of Japan?",a:"yen",cat:"Finance"},
+  {q:"What is the largest desert in the world?",a:"sahara",cat:"Geography"},
+  {q:"What is the most populous country?",a:"india",cat:"Geography"},
+  {q:"What is the capital of Morocco?",a:"rabat",cat:"Geography"},
+  {q:"What organ pumps blood through the body?",a:"heart",cat:"Human Body"},
+  {q:"What is the largest organ of the human body?",a:"skin",cat:"Human Body"},
+  {q:"How many chambers does the human heart have?",a:"4",cat:"Human Body"},
+  {q:"What gas do humans breathe in?",a:"oxygen",cat:"Science"},
+  {q:"What is the square root of 144?",a:"12",cat:"Math"},
+  {q:"What is H2O commonly known as?",a:"water",cat:"Science"},
+  {q:"What country has the most pyramids?",a:"sudan",cat:"History"},
+  {q:"What animal is known as the King of the Jungle?",a:"lion",cat:"Animals"},
+  {q:"What is the capital of Canada?",a:"ottawa",cat:"World Capitals"},
+  {q:"What country is the Eiffel Tower in?",a:"france",cat:"Landmarks"},
+  {q:"What is the currency of the UK?",a:"pound",cat:"Finance"},
+  {q:"What sport is played at Wimbledon?",a:"tennis",cat:"Sports"},
+  {q:"What planet has the most moons?",a:"saturn",cat:"Space"},
+  {q:"What is the largest continent?",a:"asia",cat:"Geography"},
+  {q:"What food is Italy most famous for?",a:"pizza",cat:"Food & Drink"},
+  {q:"What is sushi traditionally wrapped in?",a:"seaweed",cat:"Food & Drink"},
+  {q:"What car brand makes the Model S?",a:"tesla",cat:"Cars & Transport"},
+  {q:"What is the national animal of Australia?",a:"kangaroo",cat:"Animals"},
+  {q:"What metal is liquid at room temperature?",a:"mercury",cat:"Science"},
+  {q:"What is the tallest mountain in the world?",a:"everest",cat:"Geography"},
 ];
 
-/* ====== SOLO TRIVIA ====== */
-let sQs=[],sIdx=0,sSc=0,sAns=false,sStreak=0;
-
-async function startSolo(){
-  const btn=document.getElementById('soloBtn');btn.disabled=true;btn.textContent='LOADING...';
-  const n=parseInt(document.getElementById('tNum').value);
+async function startTrivia(){
+  const btn=$('tBtn');btn.disabled=true;btn.textContent='LOADING...';
+  const n=parseInt($('tNum').value);
   let qs;
   try{
-    qs=await aiQs(n,selCat,[me.lang],selDiff);
+    qs=await fetchTriviaAI(n,tCat,tDiff);
     if(!qs||!qs.length)throw 'x';
   }catch(e){
-    qs=[...FB].sort(()=>Math.random()-.5).slice(0,Math.min(n,FB.length));
+    let pool=tCat==='Mixed'?[...TRIVIA_BANK]:TRIVIA_BANK.filter(q=>q.cat.toLowerCase().includes(tCat.toLowerCase()));
+    if(pool.length<3)pool=[...TRIVIA_BANK];
+    qs=pool.sort(()=>Math.random()-.5).slice(0,Math.min(n,pool.length)).map(q=>({question:q.q,answer:q.a}));
   }
-  sQs=qs;sIdx=0;sSc=0;sStreak=0;
+  tQs=qs;tIdx=0;tSc=0;tStrk=0;
   btn.disabled=false;btn.textContent='PLAY ⚡';
-  show('soloScr');document.getElementById('sqT').textContent=sQs.length;rSoloQ();
+  showTriviaQ();
 }
 
-function rSoloQ(){
-  if(sIdx>=sQs.length){endSolo();return;}
-  sAns=false;
-  const q=sQs[sIdx];
-  document.getElementById('sqN').textContent=sIdx+1;
-  document.getElementById('sqSc').textContent='⚡ '+sSc+(sStreak>=2?' 🔥'+sStreak:'');
-  document.getElementById('sqF').style.width=((sIdx/sQs.length)*100)+'%';
-  let qT=q.question;
-  if(me.lang==='french'&&q.translations&&q.translations.french)qT=q.translations.french;
-  else if(me.lang==='arabic'&&q.translations&&q.translations.arabic)qT=q.translations.arabic;
-  const L=['A','B','C','D'];
-  document.getElementById('sqA').innerHTML=`<div class="qc"><div class="qt">${qT}</div><div class="opts">${q.options.map((o,i)=>`<button class="opt" onclick="soloAns(${i})" id="so${i}"><span class="opt-l">${L[i]}</span>${o}</button>`).join('')}</div></div>`;
+async function fetchTriviaAI(n,cat,diff){
+  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:3000,messages:[{role:'user',content:`Generate ${n} ${diff} trivia questions about ${cat}. Return ONLY a JSON array: [{"question":"Q","answer":"short answer"}]. Answers must be 1-3 words max. Factual, varied, fun.`}]})});
+  if(!r.ok)throw 'api';const d=await r.json();
+  return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
 }
 
-function soloAns(i){
-  if(sAns)return;sAns=true;
-  const q=sQs[sIdx],ok=i===q.correct;
-  document.querySelectorAll('#sqA .opt').forEach(b=>b.disabled=true);
-  document.getElementById('so'+i).classList.add(ok?'ok':'no');
-  if(!ok)document.getElementById('so'+q.correct).classList.add('ok');
-  if(ok){sSc++;sStreak++;me.correct++;}else{sStreak=0;}
-  me.total++;
-  sfb(ok);
-  setTimeout(()=>{sIdx++;rSoloQ();},1200);
+function showTriviaQ(){
+  if(tIdx>=tQs.length){endTrivia();return;}
+  const q=tQs[tIdx];
+  tTime=tDiff==='easy'?20:tDiff==='medium'?15:10;
+  render(`
+    <div class="gbar">
+      <div class="gbar-l"><span class="qnum">Q${tIdx+1}/${tQs.length}</span><span style="margin-left:8px;font-size:.65rem;color:var(--dm)">${tCat} · ${tDiff}</span></div>
+      <div class="gbar-r">
+        <div class="score-pill">⚡ ${tSc}${tStrk>=2?'<span class="streak-badge">🔥'+tStrk+'</span>':''}</div>
+        <button class="gbtn" onclick="quitTrivia()">✕</button>
+      </div>
+    </div>
+    <div class="tbar"><div class="tf tf-ok" id="tFill" style="width:100%"></div></div>
+    <div class="qcard">
+      <div class="qnum">QUESTION ${tIdx+1}</div>
+      <div class="qtxt">${q.question}</div>
+      <div class="ans-row">
+        <input class="ans-inp" id="tAns" type="text" placeholder="Type your answer..." autofocus autocomplete="off" onkeydown="if(event.key==='Enter')submitTrivia()">
+        <button class="ans-btn ans-pk" onclick="submitTrivia()">→</button>
+      </div>
+      <button class="skip-btn" onclick="skipTrivia()">Skip →</button>
+    </div>
+    <div id="tFb"></div>`);
+  setTimeout(()=>{const i=$('tAns');if(i)i.focus();},100);
+  startTriviaTimer();
 }
 
-function quitSolo(){me.games++;saveMe();endSoloShow();}
-
-async function endSolo(){me.games++;if(sSc===sQs.length)me.wins++;await saveMe();endSoloShow();}
-
-function endSoloShow(){
-  const pct=sQs.length>0?Math.round(sSc/sQs.length*100):0;
-  let msg='Nice try!',icon='💪';if(pct>=90){msg='Incredible!';icon='🏆';}else if(pct>=70){msg='Great job!';icon='⭐';}else if(pct>=50){msg='Solid!';icon='👍';}
-  show('soloRes');
-  document.getElementById('soloRes').innerHTML=`<div class="res"><div class="res-icon">${icon}</div><div class="res-title">${msg}</div><div class="res-score">${sSc}/${sQs.length}</div><div class="res-sub">${pct}% · ${selCat} · ${selDiff}</div><div class="btn-r"><button class="btn btn-pk" onclick="startSolo()">Again</button><button class="btn btn-gh" onclick="home()">Home</button></div></div>`;
+function startTriviaTimer(){
+  clearInterval(tTimer);
+  const total=tTime;
+  tTimer=setInterval(()=>{
+    tTime--;
+    const fill=$('tFill');
+    if(fill){
+      fill.style.width=(tTime/total*100)+'%';
+      if(tTime<=5)fill.className='tf tf-warn';
+    }
+    if(tTime<=0){clearInterval(tTimer);timeUpTrivia();}
+  },1000);
 }
 
-/* ====== GUESS GAME ====== */
-const GTOPICS=['Countries','Animals','Elements','Famous People','Foods','Sports','Landmarks','Instruments'];
-let selGTopic='Countries';
+function submitTrivia(){
+  clearInterval(tTimer);
+  const q=tQs[tIdx];
+  const ans=($('tAns')||{}).value||'';
+  const correct=ans.trim().toLowerCase();
+  const expected=q.answer.toLowerCase();
+  // Fuzzy match: contains or is contained
+  const ok=correct.length>1&&(expected.includes(correct)||correct.includes(expected)||correct===expected);
+  if(ok){tSc++;tStrk++;me.correct++;}else{tStrk=0;}
+  me.total++;saveMe();
+  showTriviaFb(ok,q.answer);
+}
+
+function skipTrivia(){clearInterval(tTimer);tStrk=0;me.total++;saveMe();showTriviaFb(false,tQs[tIdx].answer);}
+function timeUpTrivia(){tStrk=0;me.total++;saveMe();showTriviaFb(false,tQs[tIdx].answer);}
+
+function showTriviaFb(ok,answer){
+  const fb=$('tFb');
+  if(fb)fb.innerHTML=`<div class="fb-wrap ${ok?'fb-ok':'fb-no'}"><div class="fb-icon">${ok?'✅':'❌'}</div><div class="fb-answer">${ok?'Correct!':'Answer: '+answer}</div></div>`;
+  setTimeout(()=>{tIdx++;showTriviaQ();},1500);
+}
+
+function quitTrivia(){clearInterval(tTimer);me.games++;saveMe();endTriviaShow();}
+
+function endTrivia(){me.games++;if(tSc>=tQs.length*.8)me.wins++;saveMe();endTriviaShow();}
+
+function endTriviaShow(){
+  clearInterval(tTimer);
+  const pct=tQs.length>0?Math.round(tSc/tQs.length*100):0;
+  let msg='Keep going!',icon='💪';if(pct>=90){msg='Genius!';icon='🧠';}else if(pct>=70){msg='Nice!';icon='⚡';}else if(pct>=50){msg='Decent!';icon='👍';}
+  render(`<div class="res"><div class="res-i">${icon}</div><div class="res-t">${msg}</div><div class="res-sc">${tSc}/${tQs.length}</div><div class="res-sub">${pct}% · ${tCat} · ${tDiff}</div><div class="btn-r"><button class="btn btn-pk" onclick="triviaSetup()">Again</button><button class="btn btn-gh" onclick="homeScreen()">Home</button></div></div>`);
+}
+
+/* ========== GUESS IT ========== */
+const GTOPICS=['Countries','Animals','Elements','Famous People','Foods','Sports','Landmarks','Instruments','Movies','Brands'];
+let gTopic='Countries';
 const GDATA={
   Countries:[
-    {answer:"Japan",clues:["Island nation in East Asia","Cherry blossom capital","Home of Mount Fuji","Sushi originated here","Anime comes from here"]},
-    {answer:"Brazil",clues:["Largest country in South America","Famous for Carnival","Amazon rainforest","Portuguese-speaking","5 World Cup wins"]},
-    {answer:"Egypt",clues:["North African country","Home of the Nile","Great Pyramids are here","Capital is Cairo","Ancient hieroglyphs"]},
-    {answer:"Switzerland",clues:["Landlocked in Europe","Famous for chocolate","The Alps are here","Banking capital","4 official languages"]},
-    {answer:"Morocco",clues:["North African kingdom","Famous for tagine","Atlantic & Mediterranean coasts","Marrakech is here","Colorful souks"]},
-    {answer:"India",clues:["Second most populous nation","Home of the Taj Mahal","Bollywood film industry","Curry originated here","Has 22 official languages"]},
+    {answer:"Japan",clues:["Island nation in East Asia","Famous for cherry blossoms","Capital is Tokyo","Home of Mount Fuji","Known for anime and sushi"]},
+    {answer:"Brazil",clues:["Largest South American country","Famous for Carnival","Amazon rainforest","Portuguese-speaking","5 World Cup wins"]},
+    {answer:"Egypt",clues:["North African country","Home of the Nile","Great Pyramids","Capital is Cairo","Ancient hieroglyphs"]},
+    {answer:"Switzerland",clues:["Landlocked European country","Famous for chocolate","The Alps","Banking capital","4 official languages"]},
+    {answer:"Morocco",clues:["North African kingdom","Famous for tagine","Atlantic & Mediterranean coasts","Marrakech","Colorful souks and riads"]},
+    {answer:"India",clues:["Second most populous","Home of Taj Mahal","Bollywood","Curry originated here","22 official languages"]},
+    {answer:"Australia",clues:["Both a country and continent","Home of kangaroos","Sydney Opera House","Outback desert","Great Barrier Reef"]},
+    {answer:"Mexico",clues:["Southern North America","Famous for tacos","Aztec civilization","Day of the Dead","Cancún beaches"]},
   ],
   Animals:[
-    {answer:"Octopus",clues:["Lives in the ocean","Has eight limbs","Can change color","Three hearts","Extremely intelligent"]},
-    {answer:"Elephant",clues:["Largest land animal","Found in Africa & Asia","Has a trunk","Excellent memory","Lives in herds"]},
-    {answer:"Penguin",clues:["A bird that can't fly","Black and white","Excellent swimmer","Lives in cold places","Emperor is the largest species"]},
-    {answer:"Chameleon",clues:["A type of lizard","Changes color","Eyes move independently","Long sticky tongue","Common in Madagascar"]},
-    {answer:"Dolphin",clues:["Marine mammal","Highly intelligent","Uses echolocation","Lives in pods","Known for playfulness"]},
+    {answer:"Octopus",clues:["Ocean dweller","Eight limbs","Changes color","Three hearts","Extremely intelligent"]},
+    {answer:"Elephant",clues:["Largest land animal","Africa & Asia","Has a trunk","Great memory","Lives in herds"]},
+    {answer:"Penguin",clues:["Flightless bird","Black and white","Great swimmer","Cold climates","Emperor is largest"]},
+    {answer:"Chameleon",clues:["Type of lizard","Changes color","Independent eyes","Sticky tongue","Common in Madagascar"]},
+    {answer:"Dolphin",clues:["Marine mammal","Very intelligent","Echolocation","Lives in pods","Playful nature"]},
+    {answer:"Flamingo",clues:["Pink bird","Stands on one leg","Lives near water","Color from diet","Found in tropical areas"]},
   ],
   Elements:[
-    {answer:"Gold",clues:["Symbol: Au","Atomic number 79","Precious metal","Doesn't corrode","Used in jewelry for millennia"]},
-    {answer:"Oxygen",clues:["Symbol: O","21% of atmosphere","Essential for breathing","Atomic number 8","Discovered in 1770s"]},
-    {answer:"Iron",clues:["Symbol: Fe","Most common element by mass","Used to make steel","Atomic number 26","Makes blood red"]},
-    {answer:"Carbon",clues:["Atomic number 6","Basis of organic life","Diamond is a form of it","Symbol: C","Found in CO2"]},
-    {answer:"Mercury",clues:["Liquid at room temperature","Named after a planet","Symbol: Hg","Used in old thermometers","Atomic number 80"]},
+    {answer:"Gold",clues:["Symbol Au","Atomic number 79","Precious metal","Doesn't corrode","Jewelry for millennia"]},
+    {answer:"Oxygen",clues:["Symbol O","21% of atmosphere","Essential for breathing","Atomic number 8","Discovered 1770s"]},
+    {answer:"Mercury",clues:["Liquid at room temp","Named after a planet","Symbol Hg","Old thermometers","Atomic number 80"]},
+    {answer:"Carbon",clues:["Atomic number 6","Basis of organic life","Diamond form","Symbol C","In CO2"]},
+    {answer:"Iron",clues:["Symbol Fe","Makes steel","Most common by mass","Atomic number 26","Makes blood red"]},
   ],
   'Famous People':[
-    {answer:"Cleopatra",clues:["Ancient ruler","Last pharaoh of Egypt","Known for beauty","Allied with Rome","Ruled alongside Caesar"]},
-    {answer:"Einstein",clues:["Famous physicist","E=mc²","German-born","Won Nobel Prize","Wild hair was iconic"]},
+    {answer:"Cleopatra",clues:["Ancient ruler","Last pharaoh","Famous beauty","Allied with Rome","Egyptian queen"]},
+    {answer:"Einstein",clues:["Famous physicist","E=mc²","German-born","Nobel Prize","Wild hair"]},
+    {answer:"Shakespeare",clues:["English playwright","Hamlet author","Globe Theatre","Born in Stratford","Romeo & Juliet"]},
   ],
   Foods:[
-    {answer:"Sushi",clues:["Japanese dish","Often contains rice","Raw fish is common","Served with wasabi","Eaten with chopsticks"]},
-    {answer:"Pizza",clues:["Italian origin","Round flatbread","Tomato sauce base","Mozzarella on top","Margherita is a classic"]},
+    {answer:"Sushi",clues:["Japanese dish","Contains rice","Often raw fish","Served with wasabi","Eaten with chopsticks"]},
+    {answer:"Pizza",clues:["Italian origin","Round flatbread","Tomato sauce","Mozzarella","Margherita is classic"]},
+    {answer:"Croissant",clues:["French pastry","Crescent shape","Buttery layers","Breakfast food","Flaky texture"]},
   ],
   Sports:[
-    {answer:"Tennis",clues:["Played with rackets","Has a net in the middle","Love means zero","Wimbledon is famous","Played on court"]},
-    {answer:"Basketball",clues:["Invented by James Naismith","Played with a round ball","Hoop is 10 feet high","NBA is the top league","5 players per team"]},
+    {answer:"Tennis",clues:["Uses rackets","Net in middle","Love means zero","Wimbledon","Played on court"]},
+    {answer:"Basketball",clues:["James Naismith invented it","Round ball","10-foot hoop","NBA","5 per team"]},
+    {answer:"Cricket",clues:["Bat and ball","Originated in England","Wickets","Overs","Very popular in India"]},
   ],
   Landmarks:[
-    {answer:"Eiffel Tower",clues:["Built in 1889","Made of iron","Located in Paris","Named after its engineer","Was meant to be temporary"]},
-    {answer:"Great Wall of China",clues:["Over 13,000 miles long","Built over centuries","Visible from space (myth)","In East Asia","Made of stone and earth"]},
+    {answer:"Eiffel Tower",clues:["Built 1889","Made of iron","In Paris","Named after engineer","Meant to be temporary"]},
+    {answer:"Great Wall",clues:["Over 13000 miles","Built over centuries","In China","Stone and earth","UNESCO site"]},
+    {answer:"Colosseum",clues:["In Rome","Ancient amphitheater","Gladiator fights","Built 80 AD","Oval shape"]},
   ],
   Instruments:[
-    {answer:"Piano",clues:["Has 88 keys","Black and white keys","Invented around 1700","Strings inside the body","Played by pressing keys"]},
-    {answer:"Guitar",clues:["Usually has 6 strings","Played by strumming","Has a body and neck","Acoustic and electric types","Frets on the neck"]},
+    {answer:"Piano",clues:["88 keys","Black and white","Invented ~1700","Strings inside","Press keys to play"]},
+    {answer:"Guitar",clues:["Usually 6 strings","Strumming","Body and neck","Acoustic or electric","Frets"]},
+    {answer:"Violin",clues:["4 strings","Played with bow","Orchestral","Held under chin","Stradivarius famous"]},
+  ],
+  Movies:[
+    {answer:"Titanic",clues:["1997 film","DiCaprio starred","Ship sinks","Rose and Jack","Won 11 Oscars"]},
+    {answer:"The Lion King",clues:["Disney animated","Simba","African savanna","Hakuna Matata","Mufasa dies"]},
+  ],
+  Brands:[
+    {answer:"Nike",clues:["Swoosh logo","Just Do It","Sports brand","Named after Greek goddess","Founded in Oregon"]},
+    {answer:"Apple",clues:["Tech company","Bitten fruit logo","iPhone maker","Founded by Steve Jobs","Cupertino HQ"]},
   ],
 };
 
-let gD=null,gCI=0,gSt=0,gDone=false;
+let gD=null,gCI=0,gSt=0,gDn=false;
 
-function initGCats(){
-  document.getElementById('gChips').innerHTML=GTOPICS.map(t=>`<button class="chip ${t===selGTopic?'on':''}" onclick="pickGT(this,'${t}')">${t}</button>`).join('');
+function guessSetup(){
+  render(`
+    <button class="back" onclick="homeScreen()">Back</button>
+    <div class="cd" style="text-align:center">
+      <div style="font-size:2.4rem;margin-bottom:6px">🔍</div>
+      <div style="font-weight:800;font-size:1rem">GUESS IT</div>
+      <div style="font-size:.75rem;color:var(--tx2);margin-top:4px;line-height:1.5">Get clues one by one. Guess before 3 strikes!</div>
+    </div>
+    <div class="cd">
+      <div class="lbl">Topic</div>
+      <div class="chips">${GTOPICS.map(t=>`<button class="chip ${t===gTopic?'on':''}" onclick="gTopic='${t}';guessSetup()">${t}</button>`).join('')}</div>
+    </div>
+    <button class="btn btn-bl" onclick="startGuess()">Start 🔍</button>`);
 }
-function pickGT(el,t){selGTopic=t;document.querySelectorAll('#gChips .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');}
 
 function startGuess(){
-  const items=GDATA[selGTopic]||GDATA.Countries;
-  gD=items[Math.floor(Math.random()*items.length)];
-  gCI=0;gSt=0;gDone=false;
-  show('guessScr');document.getElementById('gTopicLabel').textContent=selGTopic;rGuess();
+  const items=GDATA[gTopic]||GDATA.Countries;
+  gD=items[Math.floor(Math.random()*items.length)];gCI=0;gSt=0;gDn=false;
+  showGuess();
 }
 
-function rGuess(){
-  let sh='';for(let i=0;i<3;i++)sh+=`<div class="stk ${i<gSt?'x':''}">${i<gSt?'✕':''}</div>`;
-  document.getElementById('gStr').innerHTML=sh;
-  let ch='';for(let i=0;i<=gCI&&i<gD.clues.length;i++)ch+=`<div class="clue-c"><div class="clue-n">Clue ${i+1}</div><div class="clue-t">${gD.clues[i]}</div></div>`;
-  document.getElementById('gClues').innerHTML=ch;
-  document.getElementById('gNext').style.display=gCI<gD.clues.length-1&&!gDone?'block':'none';
-  document.getElementById('gInp').value='';document.getElementById('gFb').innerHTML='';
-  if(!gDone)setTimeout(()=>document.getElementById('gInp').focus(),100);
+function showGuess(){
+  let stk='';for(let i=0;i<3;i++)stk+=`<div class="stk ${i<gSt?'x':''}">${i<gSt?'✕':''}</div>`;
+  let clues='';for(let i=0;i<=gCI&&i<gD.clues.length;i++)clues+=`<div class="clue-c"><div class="clue-n">Clue ${i+1}</div><div class="clue-t">${gD.clues[i]}</div></div>`;
+  render(`
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <button class="back" onclick="homeScreen()">Back</button>
+      <div class="strikes">${stk}</div>
+    </div>
+    <div style="font-size:.7rem;color:var(--tx2);font-weight:700;text-align:center;letter-spacing:.08em;text-transform:uppercase">${gTopic}</div>
+    ${clues}
+    ${gDn?'<div id="gRes"></div>':`
+      <div class="ans-row">
+        <input class="ans-inp" id="gInp" type="text" placeholder="Your guess..." autofocus onkeydown="if(event.key==='Enter')subGuess()">
+        <button class="ans-btn ans-pk" onclick="subGuess()">→</button>
+      </div>
+      ${gCI<gD.clues.length-1?'<button class="skip-btn" onclick="gCI++;showGuess()">Next Clue 💡</button>':''}
+    `}
+    <div id="gFb"></div>`);
+  if(!gDn)setTimeout(()=>{const i=$('gInp');if(i)i.focus();},100);
 }
-
-function revealClue(){if(gCI<gD.clues.length-1){gCI++;rGuess();}}
 
 function subGuess(){
-  if(gDone)return;
-  const g=document.getElementById('gInp').value.trim().toLowerCase();if(!g)return;
-  if(g===gD.answer.toLowerCase()){
-    gDone=true;me.correct++;me.total++;me.games++;me.wins++;saveMe();sfb(true);
-    document.getElementById('gFb').innerHTML=`<div style="text-align:center;padding:16px"><div style="font-size:1.8rem">🎉</div><div style="font-family:var(--fd);font-size:1.2rem;font-weight:800;color:var(--gn);margin:6px 0">${gD.answer}</div><div class="btn-r" style="margin-top:14px"><button class="btn btn-bl btn-s" onclick="startGuess()">Next</button><button class="btn btn-gh btn-s" onclick="home()">Home</button></div></div>`;
+  if(gDn)return;const g=($('gInp')||{}).value||'';if(!g.trim())return;
+  const ok=g.trim().toLowerCase()===gD.answer.toLowerCase()||gD.answer.toLowerCase().includes(g.trim().toLowerCase());
+  if(ok){
+    gDn=true;me.correct++;me.total++;me.games++;me.wins++;saveMe();
+    render(`<div class="res"><div class="res-i">🎉</div><div class="res-t">${gD.answer}</div><div class="res-sub">You got it in ${gCI+1} clue${gCI>0?'s':''}!</div><div class="btn-r"><button class="btn btn-bl" onclick="startGuess()">Next</button><button class="btn btn-gh" onclick="homeScreen()">Home</button></div></div>`);
   }else{
-    gSt++;me.total++;saveMe();sfb(false);
+    gSt++;me.total++;saveMe();
     if(gSt>=3){
-      gDone=true;me.games++;saveMe();
-      document.getElementById('gFb').innerHTML=`<div style="text-align:center;padding:16px"><div style="font-size:1.5rem">💀</div><div style="font-family:var(--fd);font-size:1rem;font-weight:800;color:var(--rd);margin:6px 0">It was: ${gD.answer}</div><div class="btn-r" style="margin-top:14px"><button class="btn btn-bl btn-s" onclick="startGuess()">Again</button><button class="btn btn-gh btn-s" onclick="home()">Home</button></div></div>`;
-    }else{
-      document.getElementById('gFb').innerHTML=`<div style="text-align:center;color:var(--rd);font-size:.85rem;padding:6px">Nope! ${3-gSt} strike${3-gSt>1?'s':''} left</div>`;
-      rGuess();
+      gDn=true;me.games++;saveMe();
+      render(`<div class="res"><div class="res-i">💀</div><div class="res-t">It was: ${gD.answer}</div><div class="res-sub">3 strikes!</div><div class="btn-r"><button class="btn btn-bl" onclick="startGuess()">Again</button><button class="btn btn-gh" onclick="homeScreen()">Home</button></div></div>`);
+    }else{showGuess();}
+  }
+}
+
+/* ========== NAME 10 ========== */
+const N10_DATA={
+  "African countries":["algeria","angola","benin","botswana","burkina faso","burundi","cameroon","cape verde","chad","comoros","congo","djibouti","egypt","eritrea","eswatini","ethiopia","gabon","gambia","ghana","guinea","ivory coast","kenya","lesotho","liberia","libya","madagascar","malawi","mali","mauritania","mauritius","morocco","mozambique","namibia","niger","nigeria","rwanda","senegal","sierra leone","somalia","south africa","south sudan","sudan","tanzania","togo","tunisia","uganda","zambia","zimbabwe"],
+  "European capitals":["london","paris","berlin","madrid","rome","lisbon","athens","vienna","brussels","amsterdam","copenhagen","stockholm","oslo","helsinki","dublin","prague","warsaw","budapest","bucharest","zagreb","belgrade","sofia","tallinn","riga","vilnius","luxembourg","bern","bratislava","ljubljana","skopje","podgorica","tirana","sarajevo","kiev","minsk","moscow","reykjavik"],
+  "Chemical elements":["hydrogen","helium","lithium","beryllium","boron","carbon","nitrogen","oxygen","fluorine","neon","sodium","magnesium","aluminum","silicon","phosphorus","sulfur","chlorine","argon","potassium","calcium","iron","copper","zinc","silver","gold","mercury","lead","platinum","uranium","titanium","nickel","cobalt","tin","tungsten","chromium","manganese","iodine","barium","radium","neon"],
+  "Dog breeds":["labrador","poodle","bulldog","beagle","husky","rottweiler","boxer","dalmatian","chihuahua","pug","corgi","dachshund","shih tzu","maltese","pitbull","doberman","akita","collie","greyhound","mastiff","spaniel","terrier","retriever","shepherd","schnauzer","samoyed","malinois","bichon"],
+  "Fruits":["apple","banana","orange","grape","strawberry","mango","pineapple","watermelon","peach","pear","cherry","plum","kiwi","coconut","lemon","lime","blueberry","raspberry","blackberry","papaya","guava","pomegranate","fig","apricot","lychee","passion fruit","dragonfruit","avocado","cantaloupe","tangerine"],
+  "Currencies":["dollar","euro","pound","yen","yuan","rupee","franc","peso","real","won","krona","dirham","dinar","riyal","baht","lira","rand","ringgit","shekel","zloty","ruble","forint","koruna"],
+  "Car brands":["toyota","honda","ford","bmw","mercedes","audi","volkswagen","tesla","hyundai","kia","nissan","mazda","subaru","volvo","porsche","ferrari","lamborghini","fiat","chevrolet","jeep","lexus","jaguar","bentley","rolls royce","peugeot","renault","citroen","maserati"],
+  "Sports":["soccer","basketball","tennis","cricket","rugby","baseball","volleyball","golf","swimming","boxing","hockey","skiing","cycling","wrestling","fencing","archery","badminton","table tennis","surfing","skateboarding","gymnastics","karate","judo","taekwondo","rowing"],
+  "Musical instruments":["piano","guitar","violin","drums","flute","trumpet","saxophone","cello","harp","clarinet","trombone","oboe","bassoon","ukulele","banjo","accordion","harmonica","mandolin","sitar","tabla","xylophone","marimba","timpani","bongos","tuba"],
+  "Types of pasta":["spaghetti","penne","fusilli","rigatoni","lasagna","ravioli","tortellini","fettuccine","macaroni","linguine","tagliatelle","farfalle","orzo","gnocchi","cannelloni","pappardelle","bucatini","orecchiette","ziti","angel hair","conchiglie","rotini","cavatappi"],
+};
+
+let n10Cat='',n10Ans=[],n10Wrong=0,n10TI=null,n10Tm=60,n10Valid=[];
+
+function n10Setup(){
+  render(`
+    <button class="back" onclick="homeScreen()">Back</button>
+    <div class="cd" style="text-align:center">
+      <div style="font-size:2.4rem;margin-bottom:6px">🔟</div>
+      <div style="font-weight:800;font-size:1rem">NAME 10</div>
+      <div style="font-size:.75rem;color:var(--tx2);margin-top:4px">Random category · 60 seconds · 3 strikes for wrong answers</div>
+    </div>
+    <button class="btn btn-or" onclick="startN10()">Go! 🔟</button>`);
+}
+
+function startN10(){
+  const cats=Object.keys(N10_DATA);
+  n10Cat=cats[Math.floor(Math.random()*cats.length)];
+  n10Valid=N10_DATA[n10Cat];
+  n10Ans=[];n10Wrong=0;n10Tm=60;
+  showN10();
+  clearInterval(n10TI);
+  n10TI=setInterval(()=>{
+    n10Tm--;
+    const t=$('n10T');if(t){t.textContent=n10Tm;if(n10Tm<=10)t.style.color='var(--rd)';}
+    if(n10Tm<=0){clearInterval(n10TI);endN10(false);}
+  },1000);
+}
+
+function showN10(){
+  let stk='';for(let i=0;i<3;i++)stk+=`<div class="stk ${i<n10Wrong?'x':''}">${i<n10Wrong?'✕':''}</div>`;
+  render(`
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <button class="back" onclick="clearInterval(n10TI);homeScreen()">Back</button>
+      <div class="strikes">${stk}</div>
+    </div>
+    <div class="n10-title">Name 10: ${n10Cat}</div>
+    <div class="n10-timer" id="n10T" style="color:${n10Tm<=10?'var(--rd)':'var(--cy)'}">${n10Tm}</div>
+    <div class="n10-cnt">${n10Ans.length} / 10</div>
+    <div class="n10-list" id="n10L">${n10Ans.map(a=>`<span class="n10-ok">${a}</span>`).join('')}</div>
+    <div class="ans-row">
+      <input class="ans-inp" id="n10I" type="text" placeholder="Type answer..." autofocus onkeydown="if(event.key==='Enter')subN10()">
+      <button class="ans-btn" style="background:var(--g3);color:#111" onclick="subN10()">+</button>
+    </div>
+    <div id="n10Fb"></div>`);
+  // Restart timer display
+  setTimeout(()=>{const i=$('n10I');if(i)i.focus();},50);
+}
+
+function subN10(){
+  const inp=$('n10I');if(!inp)return;
+  const v=inp.value.trim();if(!v)return;
+  const vl=v.toLowerCase();
+  
+  // Check duplicate
+  if(n10Ans.map(a=>a.toLowerCase()).includes(vl)){inp.value='';return;}
+  
+  // Validate against curated list (fuzzy)
+  const isValid=n10Valid.some(valid=>valid.includes(vl)||vl.includes(valid));
+  
+  if(isValid){
+    n10Ans.push(v);
+    const cnt=$('n10L');if(cnt)cnt.innerHTML+=`<span class="n10-ok">${v}</span>`;
+    const c=$('n10Fb');if(c)c.innerHTML='';
+    inp.value='';
+    const ct=document.querySelector('.n10-cnt');if(ct)ct.textContent=n10Ans.length+' / 10';
+    if(n10Ans.length>=10){clearInterval(n10TI);endN10(true);}
+  }else{
+    n10Wrong++;
+    const fb=$('n10Fb');if(fb)fb.innerHTML=`<div style="text-align:center;color:var(--rd);font-size:.8rem;padding:4px">❌ "${v}" doesn't count! ${3-n10Wrong} strike${3-n10Wrong!==1?'s':''} left</div>`;
+    inp.value='';
+    if(n10Wrong>=3){clearInterval(n10TI);endN10(false);}
+    else{
+      // Update strikes display
+      const stks=document.querySelectorAll('.stk');
+      stks.forEach((s,i)=>{if(i<n10Wrong){s.classList.add('x');s.textContent='✕';}});
     }
   }
 }
 
-/* ====== NAME 10 ====== */
-const N10C=["African countries","European capitals","Chemical elements","Dog breeds","Ocean creatures","Fruits","Languages","Musical instruments","Sports","Types of pasta","Board games","Rivers","Mountains","Currencies","Desserts","Trees","Car brands","Colors","Vegetables","Flowers","Spices","Gemstones","Dances","Cheese types","Fish species"];
-let n10A=[],n10TI=null,n10Tm=60;
-
-function startN10(){
-  const c=N10C[Math.floor(Math.random()*N10C.length)];
-  n10A=[];n10Tm=60;show('n10Scr');
-  document.getElementById('n10Cat').textContent='Name 10: '+c;
-  document.getElementById('n10Tmr').textContent='60';document.getElementById('n10Tmr').style.color='var(--cy)';
-  document.getElementById('n10Cnt').textContent='0 / 10';document.getElementById('n10Lst').innerHTML='';
-  document.getElementById('n10Inp').value='';
-  setTimeout(()=>document.getElementById('n10Inp').focus(),100);
-  clearInterval(n10TI);
-  n10TI=setInterval(()=>{n10Tm--;document.getElementById('n10Tmr').textContent=n10Tm;if(n10Tm<=10)document.getElementById('n10Tmr').style.color='var(--rd)';if(n10Tm<=0){clearInterval(n10TI);endN10(false);}},1000);
-}
-
-function subN10(){
-  const v=document.getElementById('n10Inp').value.trim();if(!v||n10A.length>=10)return;
-  if(n10A.map(a=>a.toLowerCase()).includes(v.toLowerCase())){document.getElementById('n10Inp').value='';return;}
-  n10A.push(v);
-  document.getElementById('n10Cnt').textContent=n10A.length+' / 10';
-  document.getElementById('n10Lst').innerHTML=n10A.map(a=>`<span class="n10-chip">${a}</span>`).join('');
-  document.getElementById('n10Inp').value='';
-  if(n10A.length>=10){clearInterval(n10TI);endN10(true);}
-}
-
 async function endN10(win){
-  clearInterval(n10TI);me.games++;me.correct+=n10A.length;me.total+=10;if(win)me.wins++;await saveMe();
-  show('n10Res');
-  document.getElementById('n10Res').innerHTML=`<div class="res"><div class="res-icon">${win?'🔥':'⏰'}</div><div class="res-title">${win?'Nailed it!':'Time\'s up!'}</div><div class="res-score">${n10A.length}/10</div><div class="n10-list" style="margin:12px 0">${n10A.map(a=>`<span class="n10-chip">${a}</span>`).join('')}</div><div class="btn-r"><button class="btn btn-or" onclick="startN10()">Again</button><button class="btn btn-gh" onclick="home()">Home</button></div></div>`;
+  clearInterval(n10TI);me.games++;me.correct+=n10Ans.length;me.total+=10;if(win)me.wins++;await saveMe();
+  render(`<div class="res"><div class="res-i">${win?'🔥':'⏰'}</div><div class="res-t">${win?'Nailed it!':'${n10Wrong>=3?"3 Strikes!":"Time\'s up!"}'}</div><div style="font-size:.8rem;color:var(--tx2);margin-bottom:6px">${n10Cat}</div><div class="res-sc">${n10Ans.length}/10</div><div class="n10-list" style="margin:12px 0">${n10Ans.map(a=>`<span class="n10-ok">${a}</span>`).join('')}</div><div class="btn-r"><button class="btn btn-or" onclick="startN10()">Again</button><button class="btn btn-gh" onclick="homeScreen()">Home</button></div></div>`);
 }
 
-/* ====== MULTIPLAYER ====== */
-const MPC=['#ff2d7b','#4d7dff','#ffc53d','#9c5cff'];
-let rc='',isH=false,mpPo=null,mpTI=null,mpLH='',mpA=false;
-function genRC(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ';return Array.from({length:4},()=>c[Math.floor(Math.random()*c.length)]).join('');}
-async function getR(){try{const r=await S.get('bz:'+rc,true);return r?JSON.parse(r.value):null;}catch(e){return null;}}
-async function putR(rm){rm.ts=Date.now();await S.set('bz:'+rc,JSON.stringify(rm),true);}
-async function cpRC(){try{await navigator.clipboard.writeText(rc);}catch(e){}const t=document.createElement('div');t.className='toast';t.textContent='COPIED';document.body.appendChild(t);setTimeout(()=>t.remove(),2000);}
-function togJoin(){const b=document.getElementById('joinBox');b.style.display=b.style.display==='none'?'block':'none';}
-
-async function hostMP(){isH=true;rc=genRC();await putR({host:me.id,players:[{id:me.id,name:me.name,lang:me.lang,av:me.av}],status:'lobby',settings:{},questions:[],currentQ:0,currentPlayer:0,scores:[0],answers:{},questionStartTime:0,ts:Date.now()});show('lobbyScr');document.getElementById('rcD').textContent=rc;document.getElementById('hUI').style.display='block';document.getElementById('gUI').style.display='none';renderLob(await getR());startPo();}
-
-async function joinMP(){rc=document.getElementById('mpCode').value.trim().toUpperCase();if(rc.length!==4){document.getElementById('mpErr').innerHTML='<div class="error">Enter 4-letter code</div>';return;}isH=false;const rm=await getR();if(!rm){document.getElementById('mpErr').innerHTML='<div class="error">Not found</div>';return;}if(rm.players.length>=4||rm.status!=='lobby'){document.getElementById('mpErr').innerHTML='<div class="error">Can\'t join</div>';return;}rm.players.push({id:me.id,name:me.name,lang:me.lang,av:me.av});rm.scores.push(0);await putR(rm);show('lobbyScr');document.getElementById('rcD').textContent=rc;document.getElementById('hUI').style.display='none';document.getElementById('gUI').style.display='block';renderLob(rm);startPo();}
-
-function renderLob(rm){document.getElementById('lobP').innerHTML=rm.players.map((p,i)=>`<div class="pr"><div class="av av-s" style="background:${p.av?p.av.b:AVB[i]}">${p.av?p.av.f:FACES[i]}</div><div class="pr-n" style="color:${MPC[i]}">${p.name}</div>${p.id===me.id?'<span class="tag" style="color:var(--cy)">YOU</span>':''}${i===0?'<span class="tag" style="color:var(--tx2)">HOST</span>':''}</div>`).join('');}
-
-async function startMPGame(){const btn=document.getElementById('mpSBtn');btn.disabled=true;btn.textContent='LOADING...';const rm=await getR();if(!rm||rm.players.length<2){btn.disabled=false;btn.textContent='START ⚡';return;}const n=parseInt(document.getElementById('mQ').value),t=parseInt(document.getElementById('mT').value),c=document.getElementById('mC').value,ls=[...new Set(rm.players.map(p=>p.lang))];let qs;try{qs=await aiQs(n,c,ls,'medium');if(!qs||!qs.length)throw 'x';}catch(e){qs=[...FB].sort(()=>Math.random()-.5).slice(0,Math.min(n,FB.length));}rm.status='playing';rm.questions=qs;rm.currentQ=0;rm.currentPlayer=0;rm.scores=new Array(rm.players.length).fill(0);rm.answers={};rm.settings={n,t,c,ls};rm.questionStartTime=Date.now();await putR(rm);btn.disabled=false;btn.textContent='START ⚡';mpLH='';}
-
-async function aiQs(n,cat,langs,diff){
-  const ls=langs.filter(l=>l!=='english').map(l=>`"${l}":"${l} translation"`).join(',');
-  const d=diff||'medium';
-  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:`Generate ${n} ${d} difficulty trivia MCQs about ${cat}. ONLY JSON array: [{"question":"Q","translations":{${ls}},"options":["A","B","C","D"],"correct":0}]. correct=0-3 index. Varied, factual, fun.`}]})});
-  if(!r.ok)throw 'api';const data=await r.json();return JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
+/* ========== MULTIPLAYER ========== */
+function mpMenu(){
+  render(`
+    <button class="back" onclick="homeScreen()">Back</button>
+    <div class="cd" style="text-align:center">
+      <div style="font-size:2rem;margin-bottom:6px">👥</div>
+      <div style="font-weight:800;font-size:1rem">MULTIPLAYER</div>
+      <div style="font-size:.75rem;color:var(--tx2);margin-top:4px">Same device · Pass & play trivia</div>
+    </div>
+    <div class="btn-r">
+      <button class="btn btn-pk" onclick="mpSetup()">Start Game</button>
+    </div>`);
 }
 
-function startPo(){if(mpPo)clearInterval(mpPo);mpPo=setInterval(poMP,1200);poMP();}
-async function poMP(){const rm=await getR();if(!rm)return;const h=rm.status+rm.currentQ+rm.currentPlayer+rm.players.length+rm.scores.join(',')+Object.keys(rm.answers).length+rm.ts;if(h===mpLH)return;mpLH=h;if(rm.status==='lobby'){renderLob(rm);if(isH&&rm.players.length>=2)document.getElementById('mpSBtn').disabled=false;}else if(rm.status==='playing'){show('mpGScr');rMPQ(rm);}else if(rm.status==='results'){clearInterval(mpTI);show('mpRes');rMPRes(rm);}}
+let mpPlayers=[],mpQs=[],mpIdx=0,mpCur=0,mpScores=[],mpTimer=null,mpTime=0;
 
-function rMPQ(rm){
-  const q=rm.questions[rm.currentQ];if(!q)return;
-  document.getElementById('mpQN').textContent=rm.currentQ+1;document.getElementById('mpQT').textContent=rm.questions.length;
-  document.getElementById('mpScs').innerHTML=rm.players.map((p,i)=>`<div class="sc ${i===rm.currentPlayer?'on':''}">${i===rm.currentPlayer?'<span class="sc-ar">▼</span>':''}<div class="sc-nm" style="color:${MPC[i]}">${p.name}${p.id===me.id?' ★':''}</div><div class="sc-pt" style="color:${MPC[i]}">${rm.scores[i]}</div></div>`).join('');
-  const mi=rm.players.findIndex(p=>p.id===me.id),isMy=rm.currentPlayer===mi;
-  const ak=rm.currentQ+'-'+rm.currentPlayer,ex=rm.answers[ak],pl=rm.players[rm.currentPlayer],pc=MPC[rm.currentPlayer];
-  const ml=mi>=0?rm.players[mi].lang:'english';
-  let qT=q.question;if(ml==='french'&&q.translations&&q.translations.french)qT=q.translations.french;else if(ml==='arabic'&&q.translations&&q.translations.arabic)qT=q.translations.arabic;
-  if(rm.settings.t>0&&isMy&&ex===undefined){clearInterval(mpTI);mpTI=setInterval(()=>{const el=(Date.now()-rm.questionStartTime)/1000,rem=Math.max(0,rm.settings.t-el);document.getElementById('mpTD').textContent=Math.ceil(rem)+'s';document.getElementById('mpTF').style.width=(rem/rm.settings.t*100)+'%';if(rem<=0&&!mpA){clearInterval(mpTI);mpAns(-1);}},500);}else{clearInterval(mpTI);document.getElementById('mpTD').textContent='';document.getElementById('mpTF').style.width='100%';}
-  const L=['A','B','C','D'];
-  if(ex!==undefined){document.getElementById('mpQA').innerHTML=`<div class="qc"><div class="qt">${qT}</div><div class="opts">${q.options.map((o,i)=>{let c=i===q.correct?'ok':(i===ex&&ex!==q.correct?'no':'');return`<button class="opt ${c}" disabled><span class="opt-l">${L[i]}</span>${o}</button>`;}).join('')}</div></div>`;}
-  else if(isMy){mpA=false;document.getElementById('mpQA').innerHTML=`<div class="qc"><div style="font-size:.7rem;font-weight:700;color:${pc};letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">Your turn!</div><div class="qt">${qT}</div><div class="opts">${q.options.map((o,i)=>`<button class="opt" onclick="mpAns(${i})" id="mo${i}"><span class="opt-l">${L[i]}</span>${o}</button>`).join('')}</div></div>`;}
-  else{document.getElementById('mpQA').innerHTML=`<div class="qc"><div style="font-size:.7rem;font-weight:700;color:${pc};letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">${pl.name}'s turn</div><div class="qt">${qT}</div><div class="wait">Waiting...<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div></div>`;}
+function mpSetup(){
+  render(`
+    <button class="back" onclick="mpMenu()">Back</button>
+    <div class="cd">
+      <div class="lbl">Player Names (2-4)</div>
+      <input class="inp" id="mp1" type="text" placeholder="Player 1" maxlength="12" style="margin-bottom:6px">
+      <input class="inp" id="mp2" type="text" placeholder="Player 2" maxlength="12" style="margin-bottom:6px">
+      <input class="inp" id="mp3" type="text" placeholder="Player 3 (optional)" maxlength="12" style="margin-bottom:6px">
+      <input class="inp" id="mp4" type="text" placeholder="Player 4 (optional)" maxlength="12">
+    </div>
+    <div class="cd">
+      <div class="lbl">Category</div>
+      <select class="sel" id="mpCat"><option value="Mixed">Mixed</option>${CATS.slice(1).map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
+      <div class="lbl" style="margin-top:10px">Questions</div>
+      <select class="sel" id="mpNum"><option value="8">8</option><option value="12" selected>12</option><option value="16">16</option><option value="20">20</option></select>
+    </div>
+    <button class="btn btn-pk" id="mpBtn" onclick="startMP()">Start ⚡</button>`);
 }
 
-window.mpAns=async function(i){if(mpA)return;mpA=true;clearInterval(mpTI);const rm=await getR();if(!rm)return;const q=rm.questions[rm.currentQ],ok=i>=0&&i===q.correct;rm.answers[rm.currentQ+'-'+rm.currentPlayer]=i;if(ok)rm.scores[rm.currentPlayer]++;me.total++;if(ok)me.correct++;sfb(ok);let np=rm.currentPlayer+1;if(np>=rm.players.length){np=0;rm.currentQ++;if(rm.currentQ>=rm.questions.length)rm.status='results';}rm.currentPlayer=np;rm.questionStartTime=Date.now();await putR(rm);mpLH='';};
+async function startMP(){
+  mpPlayers=[];
+  for(let i=1;i<=4;i++){const v=($('mp'+i)||{}).value;if(v&&v.trim())mpPlayers.push({name:v.trim(),av:rAv()});}
+  if(mpPlayers.length<2)return;
+  
+  const btn=$('mpBtn');btn.disabled=true;btn.textContent='LOADING...';
+  const n=parseInt($('mpNum').value),cat=$('mpCat').value;
+  let qs;
+  try{qs=await fetchTriviaAI(n,cat,'medium');if(!qs||!qs.length)throw 'x';}
+  catch(e){let pool=cat==='Mixed'?[...TRIVIA_BANK]:TRIVIA_BANK.filter(q=>q.cat.toLowerCase().includes(cat.toLowerCase()));if(pool.length<3)pool=[...TRIVIA_BANK];qs=pool.sort(()=>Math.random()-.5).slice(0,Math.min(n,pool.length)).map(q=>({question:q.q,answer:q.a}));}
+  
+  mpQs=qs;mpIdx=0;mpCur=0;mpScores=new Array(mpPlayers.length).fill(0);
+  btn.disabled=false;
+  showMPQ();
+}
 
-async function rMPRes(rm){const sorted=rm.players.map((p,i)=>({...p,score:rm.scores[i],oi:i})).sort((a,b)=>b.score-a.score);me.games++;if(sorted[0].id===me.id)me.wins++;await saveMe();document.getElementById('mpRC').innerHTML=`<div class="crown">👑</div><div class="res-title" style="color:${MPC[sorted[0].oi]}">${sorted[0].name}</div><div class="winsub" style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--tx2);margin-bottom:16px">Winner</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:16px">${sorted.map((p,r)=>`<div class="frow"><span class="frank">${['🥇','🥈','🥉','4️⃣'][r]||''}</span><div class="av av-s" style="background:${p.av?p.av.b:AVB[p.oi]}">${p.av?p.av.f:FACES[p.oi]}</div><span class="fname" style="color:${MPC[p.oi]}">${p.name}</span><span class="fpts" style="color:${MPC[p.oi]}">${p.score}</span></div>`).join('')}</div>${isH?'<button class="btn btn-pk" onclick="againMP()">Again</button>':'<div class="wait">Waiting for host...</div>'}<button class="btn btn-gh btn-s" style="margin-top:8px" onclick="home()">Leave</button>`;}
+function showMPQ(){
+  if(mpIdx>=mpQs.length){endMP();return;}
+  const q=mpQs[mpIdx],p=mpPlayers[mpCur];
+  mpTime=15;
+  const scs=mpPlayers.map((p,i)=>`<div class="sc ${i===mpCur?'on':''}" style="border-color:${['var(--pk)','var(--bl)','var(--yl)','var(--pr)'][i]}"><div class="sc-nm" style="color:${['var(--pk)','var(--bl)','var(--yl)','var(--pr)'][i]}">${p.name}</div><div class="sc-pt" style="color:${['var(--pk)','var(--bl)','var(--yl)','var(--pr)'][i]}">${mpScores[i]}</div></div>`).join('');
+  
+  render(`
+    <div class="scs">${scs}</div>
+    <div class="gbar"><span class="qnum">Q${mpIdx+1}/${mpQs.length}</span><button class="gbtn" onclick="clearInterval(mpTimer);homeScreen()">✕</button></div>
+    <div class="tbar"><div class="tf tf-ok" id="mpF" style="width:100%"></div></div>
+    <div class="qcard">
+      <div style="font-size:.7rem;font-weight:700;color:${['var(--pk)','var(--bl)','var(--yl)','var(--pr)'][mpCur]};letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">${p.name}'s Turn</div>
+      <div class="qtxt">${q.question}</div>
+      <div class="ans-row">
+        <input class="ans-inp" id="mpAns" type="text" placeholder="Type answer..." autofocus onkeydown="if(event.key==='Enter')subMP()">
+        <button class="ans-btn ans-pk" onclick="subMP()">→</button>
+      </div>
+      <button class="skip-btn" onclick="skipMP()">Skip →</button>
+    </div>
+    <div id="mpFb"></div>`);
+  setTimeout(()=>{const i=$('mpAns');if(i)i.focus();},100);
+  clearInterval(mpTimer);
+  mpTimer=setInterval(()=>{mpTime--;const f=$('mpF');if(f){f.style.width=(mpTime/15*100)+'%';if(mpTime<=5)f.className='tf tf-warn';}if(mpTime<=0){clearInterval(mpTimer);skipMP();}},1000);
+}
 
-async function againMP(){const rm=await getR();if(!rm)return;rm.status='lobby';rm.questions=[];rm.currentQ=0;rm.currentPlayer=0;rm.scores=new Array(rm.players.length).fill(0);rm.answers={};await putR(rm);mpLH='';show('lobbyScr');document.getElementById('hUI').style.display='block';renderLob(rm);}
+function subMP(){
+  clearInterval(mpTimer);
+  const q=mpQs[mpIdx],ans=($('mpAns')||{}).value||'';
+  const ok=ans.trim().toLowerCase().length>1&&(q.answer.toLowerCase().includes(ans.trim().toLowerCase())||ans.trim().toLowerCase().includes(q.answer.toLowerCase()));
+  if(ok)mpScores[mpCur]++;
+  const fb=$('mpFb');
+  if(fb)fb.innerHTML=`<div class="fb-wrap ${ok?'fb-ok':'fb-no'}"><div class="fb-icon">${ok?'✅':'❌'}</div><div class="fb-answer">${ok?'Correct!':'Answer: '+q.answer}</div></div>`;
+  setTimeout(nextMP,1500);
+}
 
-/* ====== UTILS ====== */
-function sfb(ok){const e=document.getElementById('fb');e.textContent=ok?'✓':'✕';e.className='fbt '+(ok?'y':'n');e.classList.add('show');setTimeout(()=>e.classList.remove('show'),900);}
+function skipMP(){clearInterval(mpTimer);const fb=$('mpFb');if(fb)fb.innerHTML=`<div class="fb-wrap fb-no"><div class="fb-icon">⏭️</div><div class="fb-answer">Answer: ${mpQs[mpIdx].answer}</div></div>`;setTimeout(nextMP,1500);}
 
-/* ====== INIT ====== */
-(async()=>{if(await loadMe())home();else show('authScr');})();
+function nextMP(){mpCur=(mpCur+1)%mpPlayers.length;if(mpCur===0)mpIdx++;showMPQ();}
+
+function endMP(){
+  clearInterval(mpTimer);
+  const sorted=mpPlayers.map((p,i)=>({...p,score:mpScores[i],i})).sort((a,b)=>b.score-a.score);
+  const cols=['var(--pk)','var(--bl)','var(--yl)','var(--pr)'];
+  render(`<div class="res"><div class="res-i">👑</div><div class="res-t" style="color:${cols[sorted[0].i]}">${sorted[0].name} wins!</div><div style="display:flex;flex-direction:column;gap:5px;margin:16px 0;text-align:left">${sorted.map((p,r)=>`<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg2);border-radius:10px;border:1px solid var(--bd)"><span style="font-family:var(--fm);font-size:1rem;width:28px">${['🥇','🥈','🥉','4️⃣'][r]}</span><div class="av av-s" style="background:${p.av.b}">${p.av.f}</div><span style="font-weight:700;flex:1;color:${cols[p.i]}">${p.name}</span><span style="font-family:var(--fm);font-size:1.2rem;color:${cols[p.i]}">${p.score}</span></div>`).join('')}</div><div class="btn-r"><button class="btn btn-pk" onclick="mpSetup()">Again</button><button class="btn btn-gh" onclick="homeScreen()">Home</button></div></div>`);
+}
+
+/* ========== INIT ========== */
+if(loadMe())homeScreen();else authScreen();
 </script>
 </body>
 </html>
