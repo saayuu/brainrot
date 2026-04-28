@@ -528,21 +528,41 @@ Brands:[
 
 const GUESS_TOPICS=Object.keys(GUESS_DATA);
 
+
+const N10_LABELS = {
+  "African countries": "Name 10 African countries",
+  "Countries with a McDonald's": "Countries that have a McDonald's",
+  "Most visited countries": "Top visited countries in the world",
+  "Flags with red": "Countries whose flag has red in it",
+  "Languages 50M+ speakers": "Languages with 50M+ native speakers",
+  "Oscar Best Picture 2000+": "Oscar Best Picture winners (2000 onwards)",
+  "G20 countries": "G20 member countries",
+  "Animals that lay eggs": "Animals that lay eggs",
+  "Countries starting with S": "Countries starting with the letter S",
+  "Capital cities on a river": "World capitals built on a river",
+  "European currencies": "Currencies used in Europe",
+  "Bond films": "James Bond movies",
+  "Summer Olympics sports": "Sports in the Summer Olympics",
+  "Pixar films": "Pixar movies",
+  "South American countries": "Countries in South America",
+};
+
 const N10_DATA={
-"African countries":["algeria","angola","benin","botswana","burkina faso","burundi","cameroon","chad","comoros","congo","djibouti","egypt","eritrea","ethiopia","gabon","gambia","ghana","guinea","ivory coast","kenya","lesotho","liberia","libya","madagascar","malawi","mali","mauritania","mauritius","morocco","mozambique","namibia","niger","nigeria","rwanda","senegal","sierra leone","somalia","south africa","south sudan","sudan","tanzania","togo","tunisia","uganda","zambia","zimbabwe"],
-"European capitals":["london","paris","berlin","madrid","rome","lisbon","athens","vienna","brussels","amsterdam","copenhagen","stockholm","oslo","helsinki","dublin","prague","warsaw","budapest","bucharest","zagreb","belgrade","sofia","tallinn","riga","vilnius","luxembourg","bern","bratislava","ljubljana","skopje","podgorica","tirana","sarajevo","kyiv","reykjavik","valletta","monaco","andorra"],
-"Chemical elements":["hydrogen","helium","lithium","beryllium","boron","carbon","nitrogen","oxygen","fluorine","neon","sodium","magnesium","aluminum","silicon","phosphorus","sulfur","chlorine","argon","potassium","calcium","iron","copper","zinc","silver","gold","mercury","lead","platinum","uranium","titanium","nickel","cobalt","tin","tungsten","chromium","manganese","iodine","bromine","xenon","radon"],
-"Dog breeds":["labrador","poodle","bulldog","beagle","husky","rottweiler","boxer","dalmatian","chihuahua","pug","corgi","dachshund","shih tzu","maltese","pitbull","doberman","akita","collie","greyhound","mastiff","spaniel","terrier","retriever","shepherd","schnauzer","samoyed","malinois","bichon","whippet","weimaraner"],
-"Fruits":["apple","banana","orange","grape","strawberry","mango","pineapple","watermelon","peach","pear","cherry","plum","kiwi","coconut","lemon","lime","blueberry","raspberry","blackberry","papaya","guava","pomegranate","fig","apricot","lychee","passion fruit","dragonfruit","avocado","cantaloupe","tangerine","nectarine","persimmon","grapefruit","melon"],
-"Currencies":["dollar","euro","pound","yen","yuan","rupee","franc","peso","real","won","krona","dirham","dinar","riyal","baht","lira","rand","ringgit","shekel","zloty","ruble","forint","koruna","taka","naira","hryvnia"],
-"Car brands":["toyota","honda","ford","bmw","mercedes","audi","volkswagen","tesla","hyundai","kia","nissan","mazda","subaru","volvo","porsche","ferrari","lamborghini","fiat","chevrolet","jeep","lexus","jaguar","bentley","peugeot","renault","citroen","maserati","alfa romeo","rolls-royce","bugatti"],
-"Sports":["soccer","basketball","tennis","cricket","rugby","baseball","volleyball","golf","swimming","boxing","hockey","skiing","cycling","wrestling","fencing","archery","badminton","table tennis","surfing","skateboarding","gymnastics","karate","judo","taekwondo","rowing","handball","squash","polo","lacrosse","water polo"],
-"Musical instruments":["piano","guitar","violin","drums","flute","trumpet","saxophone","cello","harp","clarinet","trombone","oboe","bassoon","ukulele","banjo","accordion","harmonica","mandolin","sitar","tabla","xylophone","tuba","viola","bass guitar","synthesizer"],
-"Types of pasta":["spaghetti","penne","fusilli","rigatoni","lasagna","ravioli","tortellini","fettuccine","macaroni","linguine","tagliatelle","farfalle","orzo","gnocchi","cannelloni","pappardelle","bucatini","orecchiette","ziti","angel hair","rotini","conchiglie"],
-"Countries in Asia":["china","japan","india","south korea","indonesia","vietnam","thailand","pakistan","bangladesh","malaysia","philippines","cambodia","myanmar","nepal","sri lanka","uzbekistan","Kazakhstan","azerbaijan","georgia","mongolia","laos","bhutan","maldives","brunei","east timor"],
-"Planets in our solar system":["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune"],
-"Languages by speakers":["mandarin","spanish","english","hindi","arabic","portuguese","french","russian","swahili","japanese","urdu","german","korean","turkish","italian","vietnamese","persian","polish","dutch","thai"],
-"US States":["california","texas","florida","new york","pennsylvania","illinois","ohio","georgia","north carolina","michigan","new jersey","virginia","washington","arizona","massachusetts","tennessee","indiana","maryland","colorado","minnesota","wisconsin","missouri","alabama","south carolina","louisiana","kentucky","oregon","oklahoma","connecticut","utah"],
+  "African countries":["algeria","angola","benin","botswana","burkina faso","burundi","cameroon","chad","comoros","congo","djibouti","egypt","eritrea","ethiopia","gabon","gambia","ghana","guinea","ivory coast","kenya","lesotho","liberia","libya","madagascar","malawi","mali","mauritania","mauritius","morocco","mozambique","namibia","niger","nigeria","rwanda","senegal","sierra leone","somalia","south africa","south sudan","sudan","tanzania","togo","tunisia","uganda","zambia","zimbabwe"],
+  "Countries with a McDonald's":["france","germany","japan","uk","australia","canada","brazil","china","india","spain","italy","mexico","south korea","russia","netherlands","sweden","switzerland","egypt","morocco","uae","saudi arabia","turkey","poland","portugal","belgium","austria","denmark","norway","finland","ireland","new zealand","south africa","thailand","malaysia","singapore","philippines","indonesia","chile","colombia","peru","pakistan","usa"],
+  "Most visited countries":["france","spain","usa","china","italy","turkey","mexico","germany","thailand","uk","russia","austria","greece","japan","canada","malaysia","portugal","hong kong","ukraine","poland"],
+  "Flags with red":["usa","uk","canada","france","china","japan","turkey","switzerland","spain","norway","denmark","australia","austria","belgium","chile","peru","singapore","south korea","morocco","tunisia","albania","latvia","portugal","poland","czech republic","croatia","serbia","russia","indonesia","vietnam","bahrain","qatar","oman","jordan","ghana","kenya","zimbabwe","cambodia","nepal"],
+  "Languages 50M+ speakers":["mandarin","spanish","english","hindi","arabic","bengali","portuguese","russian","japanese","punjabi","french","german","vietnamese","korean","turkish","italian","thai","persian","ukrainian","tagalog","malay","swahili"],
+  "Oscar Best Picture 2000+":["gladiator","a beautiful mind","chicago","the lord of the rings","million dollar baby","crash","the departed","no country for old men","slumdog millionaire","the hurt locker","the king's speech","the artist","argo","12 years a slave","birdman","spotlight","moonlight","the shape of water","green book","parasite","nomadland","coda","everything everywhere all at once","oppenheimer","anora"],
+  "G20 countries":["argentina","australia","brazil","canada","china","france","germany","india","indonesia","italy","japan","south korea","mexico","russia","saudi arabia","south africa","turkey","uk","usa"],
+  "Animals that lay eggs":["chicken","duck","eagle","penguin","ostrich","crocodile","turtle","snake","frog","salmon","shark","platypus","echidna","butterfly","bee","spider","octopus","crab","gecko","iguana","chameleon","alligator"],
+  "Countries starting with S":["saudi arabia","senegal","serbia","sierra leone","singapore","slovakia","slovenia","somalia","south africa","south korea","south sudan","spain","sri lanka","sudan","suriname","sweden","switzerland","syria","samoa","san marino"],
+  "Capital cities on a river":["london","paris","berlin","rome","vienna","budapest","prague","warsaw","cairo","baghdad","tehran","seoul","bangkok","delhi","moscow","kyiv","amsterdam","belgrade","bern","ottawa","washington","lima","bogota","santiago","buenos aires","montevideo"],
+  "European currencies":["euro","pound","franc","krone","zloty","forint","leu","lira","hryvnia","ruble","koruna","krona"],
+  "Bond films":["dr no","goldfinger","thunderball","moonraker","skyfall","spectre","casino royale","goldeneye","the spy who loved me","for your eyes only","die another day","quantum of solace","no time to die","from russia with love","tomorrow never dies"],
+  "Summer Olympics sports":["swimming","athletics","gymnastics","cycling","rowing","boxing","judo","taekwondo","basketball","volleyball","football","tennis","badminton","archery","fencing","diving","sailing","weightlifting","triathlon","wrestling","equestrian"],
+  "Pixar films":["toy story","monsters inc","finding nemo","the incredibles","cars","ratatouille","wall-e","up","brave","inside out","coco","soul","luca","turning red","elemental","onward"],
+  "South American countries":["argentina","bolivia","brazil","chile","colombia","ecuador","guyana","paraguay","peru","suriname","uruguay","venezuela","trinidad"],
 };
 
 const N10_CATS=Object.keys(N10_DATA);
