@@ -174,7 +174,7 @@ body{background:var(--bg);color:var(--tx);font-family:var(--ff);min-height:100vh
 .site-header{position:sticky;top:0;z-index:50;background:rgba(10,10,22,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);padding:0 16px}
 .site-header-inner{max-width:660px;margin:0 auto;height:48px;display:flex;align-items:center;justify-content:space-between}
 .site-logo{font-weight:800;font-size:1.1rem;letter-spacing:.02em;cursor:pointer;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;user-select:none}
-.logo-e-sm{font-size:.75em;opacity:.7;color:var(--cy);-webkit-text-fill-color:var(--cy)}
+.logo-e-sm{font-size:.75em;opacity:.85;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hdr-btn{background:none;border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);font-size:.8rem;padding:5px 10px;cursor:pointer;font-family:var(--ff)}
 .hdr-btn:hover{color:var(--tx);border-color:var(--tx2)}
 .hdr-score{font-family:var(--fm);font-size:.85rem;color:var(--cy);font-weight:500}
@@ -223,3 +223,19 @@ body{background:var(--bg);color:var(--tx);font-family:var(--ff);min-height:100vh
 .mp-score-row{display:flex;gap:8px}
 .mp-score-cell{flex:1;background:var(--sf);border:1px solid var(--bd);border-radius:11px;padding:10px;text-align:center}
 .mp-skip-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+
+/* BATTLE ROYALE */
+.br-fight-intro{text-align:center;padding:32px 20px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rad)}
+.br-fight-badge{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--or);background:rgba(255,123,58,.1);border:1px solid rgba(255,123,58,.2);padding:4px 12px;border-radius:6px;display:inline-block;margin-bottom:8px}
+.br-countdown{font-family:var(--fm);font-size:4rem;font-weight:500;color:var(--yl);margin-top:16px;animation:pop .3s ease}
+
+/* CLUE TIMER BAR */
+.clue-timer-bar{height:2px;background:var(--bg3);border-radius:2px;overflow:hidden;margin:6px 0}
+.clue-timer-fill{height:100%;background:var(--g3);border-radius:2px;transition:width .1s linear}
+.clue-new{animation:fadein .3s ease}
+
+/* N10 TIMER MM:SS */
+.n10-timer{font-family:var(--fm);font-size:2.8rem;font-weight:500;text-align:center;line-height:1;margin:4px 0;letter-spacing:.05em}
+
+/* PULSE ANIMATION */
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
