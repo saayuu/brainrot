@@ -8,16 +8,20 @@
 <meta name="mobile-web-app-capable" content="yes">
 <title>BRAINROT(E)</title>
 <link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<!-- Firebase SDK via CDN -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
 </head>
 <body>
 <div class="bgfx"><div class="orb"></div><div class="orb"></div><div class="orb"></div></div>
 
 <!-- PERSISTENT HEADER -->
-<header class="site-header" id="siteHeader">
+<header class="site-header">
   <div class="site-header-inner">
-    <div class="site-logo" onclick="App.home && App.home()">
+    <div class="site-logo" onclick="if(typeof App!=='undefined')App.home()">
       BRAINROT<span class="logo-e-sm">(E)</span>
     </div>
     <div class="header-right" id="headerRight"></div>
@@ -26,6 +30,14 @@
 
 <div class="app" id="app"></div>
 
+<script src="js/firebase-config.js"></script>
+<script>
+  // Init Firebase
+  try {
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  } catch(e) { console.warn('Firebase init:', e); }
+</script>
 <script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/storage.js"></script>
@@ -36,7 +48,7 @@
 <script src="js/impostor.js"></script>
 <script src="js/mp.js"></script>
 <script>
-if(Storage.loadMe()) App.home(); else App.auth();
+  if(Storage.loadMe()) App.home(); else App.auth();
 </script>
 </body>
 </html>
