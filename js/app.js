@@ -101,14 +101,13 @@ const App={
         <div class="mode mode-3" onclick="Name10.setup()"><span class="mi">🔟</span><div class="mn">${t('name10')}</div><div class="md">${t('n10Desc')}</div></div>
         <div class="mode mode-4" onclick="Impostor.setup()"><span class="mi">🎭</span><div class="mn">IMPOSTOR</div><div class="md">Get assigned a secret word. Interrogate each other.</div></div>
       </div>
-      <div class="section-lbl" style="margin-top:4px">MULTIPLAYER <span class="coming-soon">COMING SOON</span></div>
-      <div class="mp-teaser" onclick="toast('Multiplayer is being built! Stay tuned 👾',3000)">
-        <span style="font-size:1.4rem">👥</span>
+      <div class="section-lbl" style="margin-top:4px">MULTIPLAYER</div>
+      <div class="mode mode-5" onclick="MP.menu()" style="display:flex;align-items:center;gap:12px;text-align:left;padding:16px">
+        <span style="font-size:1.8rem">👥</span>
         <div>
-          <div style="font-weight:700;font-size:.85rem">Live Rooms</div>
-          <div style="font-size:.65rem;color:var(--tx2)">Host or join · All game modes · Real-time</div>
+          <div class="mn">Live Rooms</div>
+          <div class="md">Host or join · First to answer wins · Real-time</div>
         </div>
-        <div class="coming-soon-badge">SOON</div>
       </div>`);
   },
 
