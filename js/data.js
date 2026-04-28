@@ -1,0 +1,147 @@
+const CATS=['Mixed','General Knowledge','Geography','Science','History','Pop Culture','Animals','Food & Drink','Sports','Movies & TV','Music','Art & Literature','Technology','Space','Human Body','Languages','Finance','World Flags','World Capitals','Landmarks','Math','Fashion','Psychology','Mythology','Nature','Cars & Transport'];
+
+const TRIVIA_BANK=[
+{q:"What is the capital of France?",a:"paris",c:"World Capitals"},
+{q:"What planet is known as the Red Planet?",a:"mars",c:"Space"},
+{q:"What is the chemical symbol for gold?",a:"au",c:"Science"},
+{q:"What is the largest ocean?",a:"pacific",c:"Geography"},
+{q:"Who painted the Mona Lisa?",a:"da vinci",c:"Art & Literature"},
+{q:"What is the capital of Japan?",a:"tokyo",c:"World Capitals"},
+{q:"How many bones in an adult human body?",a:"206",c:"Human Body"},
+{q:"What year did the Titanic sink?",a:"1912",c:"History"},
+{q:"What is the smallest country in the world?",a:"vatican",c:"Geography"},
+{q:"What is the hardest natural substance?",a:"diamond",c:"Science"},
+{q:"What language is spoken in Brazil?",a:"portuguese",c:"Languages"},
+{q:"What is the fastest land animal?",a:"cheetah",c:"Animals"},
+{q:"What is the longest river in the world?",a:"nile",c:"Geography"},
+{q:"What is the capital of Australia?",a:"canberra",c:"World Capitals"},
+{q:"Boiling point of water in Celsius?",a:"100",c:"Science"},
+{q:"Who wrote Romeo and Juliet?",a:"shakespeare",c:"Art & Literature"},
+{q:"What is the currency of Japan?",a:"yen",c:"Finance"},
+{q:"What is the largest desert in the world?",a:"sahara",c:"Geography"},
+{q:"Most populous country in the world?",a:"india",c:"Geography"},
+{q:"What is the capital of Morocco?",a:"rabat",c:"World Capitals"},
+{q:"What organ pumps blood?",a:"heart",c:"Human Body"},
+{q:"What is the largest organ of the human body?",a:"skin",c:"Human Body"},
+{q:"How many chambers does the heart have?",a:"4",c:"Human Body"},
+{q:"What gas do humans breathe in?",a:"oxygen",c:"Science"},
+{q:"What is the square root of 144?",a:"12",c:"Math"},
+{q:"What is H2O?",a:"water",c:"Science"},
+{q:"What country has the most pyramids?",a:"sudan",c:"History"},
+{q:"Animal known as King of the Jungle?",a:"lion",c:"Animals"},
+{q:"What is the capital of Canada?",a:"ottawa",c:"World Capitals"},
+{q:"Country where the Eiffel Tower is?",a:"france",c:"Landmarks"},
+{q:"Currency of the UK?",a:"pound",c:"Finance"},
+{q:"Sport played at Wimbledon?",a:"tennis",c:"Sports"},
+{q:"Planet with the most moons?",a:"saturn",c:"Space"},
+{q:"What is the largest continent?",a:"asia",c:"Geography"},
+{q:"Food Italy is most famous for?",a:"pizza",c:"Food & Drink"},
+{q:"What is sushi wrapped in?",a:"seaweed",c:"Food & Drink"},
+{q:"Car brand that makes the Model S?",a:"tesla",c:"Cars & Transport"},
+{q:"National animal of Australia?",a:"kangaroo",c:"Animals"},
+{q:"Metal that is liquid at room temperature?",a:"mercury",c:"Science"},
+{q:"Tallest mountain in the world?",a:"everest",c:"Geography"},
+{q:"What does DNA stand for?",a:"deoxyribonucleic acid",c:"Science"},
+{q:"Who discovered gravity?",a:"newton",c:"Science"},
+{q:"What year did WW2 end?",a:"1945",c:"History"},
+{q:"Smallest bone in the human body?",a:"stapes",c:"Human Body"},
+{q:"Capital of Switzerland?",a:"bern",c:"World Capitals"},
+{q:"Currency of Morocco?",a:"dirham",c:"Finance"},
+{q:"What sport uses a shuttlecock?",a:"badminton",c:"Sports"},
+{q:"Largest animal ever to exist?",a:"blue whale",c:"Animals"},
+{q:"What is the speed of light in km/s?",a:"300000",c:"Science"},
+{q:"Capital of South Korea?",a:"seoul",c:"World Capitals"},
+{q:"Who wrote Harry Potter?",a:"jk rowling",c:"Art & Literature"},
+{q:"What is the capital of Egypt?",a:"cairo",c:"World Capitals"},
+{q:"What is Bitcoin?",a:"cryptocurrency",c:"Finance"},
+{q:"How many sides does a hexagon have?",a:"6",c:"Math"},
+{q:"What is the capital of Germany?",a:"berlin",c:"World Capitals"},
+{q:"What company makes the iPhone?",a:"apple",c:"Technology"},
+{q:"Hottest planet in our solar system?",a:"venus",c:"Space"},
+{q:"What is the capital of Thailand?",a:"bangkok",c:"World Capitals"},
+{q:"Who is the Greek god of the sea?",a:"poseidon",c:"Mythology"},
+{q:"What flower is associated with Japan?",a:"cherry blossom",c:"Nature"},
+{q:"What fabric is made from silkworms?",a:"silk",c:"Fashion"},
+];
+
+const GUESS_DATA={
+Countries:[
+{answer:"Japan",clues:["Island nation in East Asia","Famous for cherry blossoms","Capital is Tokyo","Home of Mount Fuji","Known for anime and sushi"]},
+{answer:"Brazil",clues:["Largest South American country","Famous for Carnival","Amazon rainforest","Portuguese-speaking","5 World Cup wins"]},
+{answer:"Egypt",clues:["North African country","Home of the Nile","Great Pyramids","Capital is Cairo","Ancient hieroglyphs"]},
+{answer:"Switzerland",clues:["Landlocked European country","Famous for chocolate","The Alps","Banking capital","4 official languages"]},
+{answer:"Morocco",clues:["North African kingdom","Famous for tagine","Atlantic & Mediterranean coasts","Marrakech","Colorful souks and riads"]},
+{answer:"India",clues:["Second most populous","Home of Taj Mahal","Bollywood","Curry originated here","22 official languages"]},
+{answer:"Australia",clues:["Both country and continent","Home of kangaroos","Sydney Opera House","Outback desert","Great Barrier Reef"]},
+{answer:"Mexico",clues:["Southern North America","Famous for tacos","Aztec civilization","Day of the Dead","Cancún beaches"]},
+],
+Animals:[
+{answer:"Octopus",clues:["Ocean dweller","Eight limbs","Changes color","Three hearts","Extremely intelligent"]},
+{answer:"Elephant",clues:["Largest land animal","Africa & Asia","Has a trunk","Great memory","Lives in herds"]},
+{answer:"Penguin",clues:["Flightless bird","Black and white","Great swimmer","Cold climates","Emperor is largest"]},
+{answer:"Chameleon",clues:["Type of lizard","Changes color","Independent eyes","Sticky tongue","Common in Madagascar"]},
+{answer:"Dolphin",clues:["Marine mammal","Very intelligent","Echolocation","Lives in pods","Playful nature"]},
+{answer:"Flamingo",clues:["Pink bird","Stands on one leg","Lives near water","Color from diet","Tropical areas"]},
+],
+Elements:[
+{answer:"Gold",clues:["Symbol Au","Atomic number 79","Precious metal","Doesn't corrode","Jewelry for millennia"]},
+{answer:"Oxygen",clues:["Symbol O","21% of atmosphere","Essential for breathing","Atomic number 8","Discovered 1770s"]},
+{answer:"Mercury",clues:["Liquid at room temp","Named after a planet","Symbol Hg","Old thermometers","Atomic number 80"]},
+{answer:"Carbon",clues:["Atomic number 6","Basis of organic life","Diamond form","Symbol C","In CO2"]},
+{answer:"Iron",clues:["Symbol Fe","Makes steel","Most common by mass","Atomic number 26","Makes blood red"]},
+],
+'Famous People':[
+{answer:"Cleopatra",clues:["Ancient ruler","Last pharaoh","Famous beauty","Allied with Rome","Egyptian queen"]},
+{answer:"Einstein",clues:["Famous physicist","E=mc²","German-born","Nobel Prize","Wild hair"]},
+{answer:"Shakespeare",clues:["English playwright","Hamlet author","Globe Theatre","Born in Stratford","Romeo & Juliet"]},
+],
+Foods:[
+{answer:"Sushi",clues:["Japanese dish","Contains rice","Often raw fish","Served with wasabi","Eaten with chopsticks"]},
+{answer:"Pizza",clues:["Italian origin","Round flatbread","Tomato sauce","Mozzarella","Margherita is classic"]},
+{answer:"Croissant",clues:["French pastry","Crescent shape","Buttery layers","Breakfast food","Flaky texture"]},
+],
+Sports:[
+{answer:"Tennis",clues:["Uses rackets","Net in middle","Love means zero","Wimbledon","Played on court"]},
+{answer:"Basketball",clues:["James Naismith invented it","Round ball","10-foot hoop","NBA","5 per team"]},
+{answer:"Cricket",clues:["Bat and ball","Originated in England","Wickets","Overs","Very popular in India"]},
+],
+Landmarks:[
+{answer:"Eiffel Tower",clues:["Built 1889","Made of iron","In Paris","Named after engineer","Meant to be temporary"]},
+{answer:"Great Wall",clues:["Over 13000 miles","Built over centuries","In China","Stone and earth","UNESCO site"]},
+{answer:"Colosseum",clues:["In Rome","Ancient amphitheater","Gladiator fights","Built 80 AD","Oval shape"]},
+],
+Instruments:[
+{answer:"Piano",clues:["88 keys","Black and white","Invented ~1700","Strings inside","Press keys to play"]},
+{answer:"Guitar",clues:["Usually 6 strings","Strumming","Body and neck","Acoustic or electric","Frets"]},
+{answer:"Violin",clues:["4 strings","Played with bow","Orchestral","Held under chin","Stradivarius famous"]},
+],
+Movies:[
+{answer:"Titanic",clues:["1997 film","DiCaprio starred","Ship sinks","Rose and Jack","Won 11 Oscars"]},
+{answer:"The Lion King",clues:["Disney animated","Simba","African savanna","Hakuna Matata","Mufasa dies"]},
+],
+Brands:[
+{answer:"Nike",clues:["Swoosh logo","Just Do It","Sports brand","Named after Greek goddess","Founded in Oregon"]},
+{answer:"Apple",clues:["Tech company","Bitten fruit logo","iPhone maker","Founded by Steve Jobs","Cupertino HQ"]},
+],
+};
+
+const GUESS_TOPICS=Object.keys(GUESS_DATA);
+
+const N10_DATA={
+"African countries":["algeria","angola","benin","botswana","burkina faso","burundi","cameroon","cape verde","chad","comoros","congo","djibouti","egypt","eritrea","eswatini","ethiopia","gabon","gambia","ghana","guinea","ivory coast","kenya","lesotho","liberia","libya","madagascar","malawi","mali","mauritania","mauritius","morocco","mozambique","namibia","niger","nigeria","rwanda","senegal","sierra leone","somalia","south africa","south sudan","sudan","tanzania","togo","tunisia","uganda","zambia","zimbabwe"],
+"European capitals":["london","paris","berlin","madrid","rome","lisbon","athens","vienna","brussels","amsterdam","copenhagen","stockholm","oslo","helsinki","dublin","prague","warsaw","budapest","bucharest","zagreb","belgrade","sofia","tallinn","riga","vilnius","luxembourg","bern","bratislava","ljubljana","skopje","podgorica","tirana","sarajevo","kyiv","minsk","moscow","reykjavik"],
+"Chemical elements":["hydrogen","helium","lithium","beryllium","boron","carbon","nitrogen","oxygen","fluorine","neon","sodium","magnesium","aluminum","silicon","phosphorus","sulfur","chlorine","argon","potassium","calcium","iron","copper","zinc","silver","gold","mercury","lead","platinum","uranium","titanium","nickel","cobalt","tin","tungsten","chromium","manganese","iodine"],
+"Dog breeds":["labrador","poodle","bulldog","beagle","husky","rottweiler","boxer","dalmatian","chihuahua","pug","corgi","dachshund","shih tzu","maltese","pitbull","doberman","akita","collie","greyhound","mastiff","spaniel","terrier","retriever","shepherd","schnauzer","samoyed","malinois"],
+"Fruits":["apple","banana","orange","grape","strawberry","mango","pineapple","watermelon","peach","pear","cherry","plum","kiwi","coconut","lemon","lime","blueberry","raspberry","blackberry","papaya","guava","pomegranate","fig","apricot","lychee","passion fruit","dragonfruit","avocado","cantaloupe","tangerine"],
+"Currencies":["dollar","euro","pound","yen","yuan","rupee","franc","peso","real","won","krona","dirham","dinar","riyal","baht","lira","rand","ringgit","shekel","zloty","ruble","forint","koruna"],
+"Car brands":["toyota","honda","ford","bmw","mercedes","audi","volkswagen","tesla","hyundai","kia","nissan","mazda","subaru","volvo","porsche","ferrari","lamborghini","fiat","chevrolet","jeep","lexus","jaguar","bentley","peugeot","renault","citroen","maserati"],
+"Sports":["soccer","basketball","tennis","cricket","rugby","baseball","volleyball","golf","swimming","boxing","hockey","skiing","cycling","wrestling","fencing","archery","badminton","table tennis","surfing","skateboarding","gymnastics","karate","judo","taekwondo","rowing"],
+"Musical instruments":["piano","guitar","violin","drums","flute","trumpet","saxophone","cello","harp","clarinet","trombone","oboe","bassoon","ukulele","banjo","accordion","harmonica","mandolin","sitar","tabla","xylophone","tuba"],
+"Types of pasta":["spaghetti","penne","fusilli","rigatoni","lasagna","ravioli","tortellini","fettuccine","macaroni","linguine","tagliatelle","farfalle","orzo","gnocchi","cannelloni","pappardelle","bucatini","orecchiette","ziti","angel hair","rotini"],
+};
+
+const N10_CATS=Object.keys(N10_DATA);
+
+const FACES_LIST=['😎','🤓','😤','🥶','🔥','💀','👻','🤖','🦊','🐱','🦁','🐸','🎃','👽','🧠','💎','⚡','🌙','🦋','🐙','🍕','🎯','🎲','🎭'];
+const AVB_LIST=['linear-gradient(135deg,#ff2d6a,#a75fff)','linear-gradient(135deg,#5b8cff,#00dda8)','linear-gradient(135deg,#ff7b3a,#ffc640)','linear-gradient(135deg,#a75fff,#5b8cff)','linear-gradient(135deg,#ff4040,#ff7b3a)','linear-gradient(135deg,#00dda8,#5b8cff)','linear-gradient(135deg,#ffc640,#ff2d6a)','linear-gradient(135deg,#30d880,#00dda8)'];
+function randomAvatar(){return{f:FACES_LIST[Math.floor(Math.random()*FACES_LIST.length)],b:AVB_LIST[Math.floor(Math.random()*AVB_LIST.length)]};}
