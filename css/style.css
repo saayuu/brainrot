@@ -217,3 +217,9 @@ body{background:var(--bg);color:var(--tx);font-family:var(--ff);min-height:100vh
 .mode-2::after{background:var(--g2)}
 .mode-3::after{background:var(--g3)}
 .mode-4::after{background:var(--g4)}
+
+/* MULTIPLAYER GAME */
+.mp-scores{margin-bottom:8px}
+.mp-score-row{display:flex;gap:8px}
+.mp-score-cell{flex:1;background:var(--sf);border:1px solid var(--bd);border-radius:11px;padding:10px;text-align:center}
+.mp-skip-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
