@@ -204,16 +204,24 @@ const MP = {
     MP._room = room;
     MP._scores = {};
     Object.keys(room.players).forEach(pid => MP._scores[pid] = 0);
-    MP.showQuestion();
 
-    // Listen for game state changes (question advances)
+    // Master sync listener — watches currentQ changes for ALL players
+    let lastQ = -1;
     const unsub = _roomRef.on('value', snap => {
-      if (!snap.exists()) return;
+      if(!snap.exists()) return;
       const r = snap.val();
       MP._room = r;
-      if (r.status === 'finished') {
+      if(r.status === 'finished') {
         _roomRef.off('value', unsub);
+        clearInterval(MP._timerId);
         MP.showResults(r);
+        return;
+      }
+      const qNow = r.currentQ || 0;
+      if(qNow !== lastQ) {
+        lastQ = qNow;
+        clearInterval(MP._timerId);
+        MP.showQuestion();
       }
     });
     _unsubscribes.push(() => _roomRef.off('value', unsub));
