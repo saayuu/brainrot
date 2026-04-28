@@ -144,7 +144,12 @@ const MP = {
     _roomRef = db.ref('rooms/' + code);
 
     await _roomRef.child('players/' + _playerId).set({ name: window._me.name, score: 0, ready: true });
-    MP.showLobby();
+    // Route to correct lobby based on game mode
+    if (snap.val().mode === 'Battle Royale') {
+      BR.showLobby();
+    } else {
+      MP.showLobby();
+    }
   },
 
   showLobby() {
@@ -492,10 +497,12 @@ const BR = {
         <div class="lbl">Players</div>
         <div id="brPlayerList">Loading...</div>
       </div>
-      ${_isHost ? `<button class="btn btn-or" id="brStartBtn" onclick="BR.startBattle()" disabled style="opacity:.4">Waiting for players...</button>` : `<div style="text-align:center;color:var(--tx2);font-size:.8rem;padding:8px">⚔️ Waiting for host to start the battle...</div>`}`);
+      ${_isHost ? `<button class="btn btn-or" id="brStartBtn" onclick="BR.startBattle()" disabled style="opacity:.4">Waiting for players...</button>` : `<div style="text-align:center;color:var(--yl);font-size:.85rem;font-weight:600;padding:8px">⚔️ Waiting for host to start the battle...</div>`}`);
 
+    let _brStarted = false;
     const unsub = _roomRef.on('value', snap => {
       if(!snap.exists()) return;
+      if(_brStarted) return;
       const r = snap.val();
       const list = $('brPlayerList');
       if(list && r.players){
@@ -508,10 +515,15 @@ const BR = {
       const count = r.players ? Object.keys(r.players).length : 0;
       if(btn && count >= 2){ btn.disabled=false; btn.style.opacity='1'; btn.textContent=`⚔️ Start Battle (${count} players)`; }
       if(r.status === 'fighting'){
+        _brStarted = true;
         _roomRef.off('value', unsub);
-        BR.players = r.players;
+        BR.players = r.players || {};
         BR.totalScores = {};
-        Object.keys(r.players).forEach(pid => BR.totalScores[pid] = 0);
+        BR.fightScores = {};
+        Object.keys(BR.players).forEach(pid => { BR.totalScores[pid] = 0; BR.fightScores[pid] = 0; });
+        // Normalize fights array
+        if(r.fights && !Array.isArray(r.fights)) r.fights = Object.values(r.fights);
+        r.fights && r.fights.forEach(f => { if(f.qs && !Array.isArray(f.qs)) f.qs = Object.values(f.qs); });
         BR.watchFight(r);
       }
     });
