@@ -35,10 +35,20 @@ const MP = {
       <div class="cd" style="text-align:center">
         <div style="font-size:2.4rem;margin-bottom:8px">👥</div>
         <div style="font-weight:800;font-size:1.1rem">LIVE MULTIPLAYER</div>
-        <div style="font-size:.72rem;color:var(--tx2);margin-top:6px">Join from different devices. First correct answer wins.</div>
+        <div style="font-size:.72rem;color:var(--tx2);margin-top:6px">Different devices · Real-time · First correct answer wins</div>
       </div>
+      <div class="section-lbl">STANDARD</div>
       <button class="btn btn-pk" onclick="MP.hostSetup()">🏠 Host a Room</button>
-      <button class="btn btn-bl" onclick="MP.joinSetup()" style="margin-top:0">🔗 Join a Room</button>`);
+      <button class="btn btn-bl" onclick="MP.joinSetup()" style="margin-top:0">🔗 Join a Room</button>
+      <div class="section-lbl" style="margin-top:4px">BATTLE ROYALE</div>
+      <div class="mp-teaser" onclick="BR.host()" style="cursor:pointer;opacity:1">
+        <span style="font-size:1.8rem">👑</span>
+        <div style="flex:1">
+          <div style="font-weight:800;font-size:.9rem;color:var(--yl)">Host a Battle Royale</div>
+          <div style="font-size:.65rem;color:var(--tx2)">3 fights · Auto-generated · Random categories · CONQUEROR declared</div>
+        </div>
+      </div>
+      <button class="btn btn-bl" onclick="MP.joinSetup()" style="margin-top:0">🔗 Join a Battle Royale room</button>`);
   },
 
   hostSetup() {
@@ -403,6 +413,295 @@ const MP = {
     }
     _roomRef = null; _roomCode = null; _playerId = null; _isHost = false;
     clearInterval(MP._timerId);
+    MP.menu();
+  }
+};
+
+// ── BATTLE ROYALE ─────────────────────────────────────────────────────────
+// 3 fights, each with a random category, 5 questions each
+// Points accumulate. CONQUEROR declared at the end.
+const BR = {
+  fights: 3,
+  qPerFight: 5,
+  fightIdx: 0,
+  totalScores: {},
+  fightScores: {},
+  players: [],
+
+  async host() {
+    const db = getDB();
+    if(!db){ toast('Firebase not loaded'); return; }
+    _isHost = true;
+    _playerId = genPlayerId();
+    _roomCode = genRoomCode();
+
+    // Pre-generate all fights
+    const allFights = Array.from({length: BR.fights}, (_, fi) => {
+      const cat = CATS[Math.floor(Math.random()*CATS.length)];
+      let pool = TRIVIA_BANK.filter(q => q.c === cat);
+      if(pool.length < 5) pool = [...TRIVIA_BANK];
+      const qs = pool.sort(()=>Math.random()-.5).slice(0, BR.qPerFight).map(q=>({q:q.q,a:q.a,alts:q.alts||[]}));
+      return { cat, qs };
+    });
+
+    const roomData = {
+      host: _playerId,
+      hostName: window._me.name,
+      mode: 'Battle Royale',
+      status: 'waiting',
+      fights: allFights,
+      currentFight: 0,
+      currentQ: 0,
+      players: { [_playerId]: { name: window._me.name, score: 0 } }
+    };
+
+    await db.ref('rooms/' + _roomCode).set(roomData);
+    _roomRef = db.ref('rooms/' + _roomCode);
+    BR.showLobby();
+  },
+
+  showLobby() {
+    render(`
+      <button class="back" onclick="BR.leave()">Leave</button>
+      <div class="cd" style="text-align:center">
+        <div style="font-size:.6rem;color:var(--tx2);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Battle Royale · Room Code</div>
+        <div style="font-size:3rem;font-weight:800;letter-spacing:10px;color:var(--yl);font-family:var(--fm)">${_roomCode}</div>
+        <div style="font-size:.65rem;color:var(--tx2);margin-top:4px">${BR.fights} fights · ${BR.qPerFight} questions each · Random categories</div>
+      </div>
+      <div class="cd">
+        <div class="lbl">Players</div>
+        <div id="brPlayerList">Loading...</div>
+      </div>
+      ${_isHost ? `<button class="btn btn-or" id="brStartBtn" onclick="BR.startBattle()" disabled style="opacity:.4">Waiting for players...</button>` : `<div style="text-align:center;color:var(--tx2);font-size:.8rem;padding:8px">⚔️ Waiting for host to start the battle...</div>`}`);
+
+    const unsub = _roomRef.on('value', snap => {
+      if(!snap.exists()) return;
+      const r = snap.val();
+      const list = $('brPlayerList');
+      if(list && r.players){
+        list.innerHTML = Object.values(r.players).map(p=>
+          `<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg2);border-radius:10px">
+            <div>⚔️</div><div style="font-weight:600">${p.name}</div>
+          </div>`).join('');
+      }
+      const btn = $('brStartBtn');
+      const count = r.players ? Object.keys(r.players).length : 0;
+      if(btn && count >= 2){ btn.disabled=false; btn.style.opacity='1'; btn.textContent=`⚔️ Start Battle (${count} players)`; }
+      if(r.status === 'fighting'){
+        _roomRef.off('value', unsub);
+        BR.players = r.players;
+        BR.totalScores = {};
+        Object.keys(r.players).forEach(pid => BR.totalScores[pid] = 0);
+        BR.watchFight(r);
+      }
+    });
+    _unsubscribes.push(()=>_roomRef.off('value', unsub));
+  },
+
+  async startBattle() {
+    await _roomRef.update({ status: 'fighting', currentFight: 0, currentQ: 0 });
+  },
+
+  watchFight(room) {
+    const fight = room.currentFight || 0;
+    const q = room.currentQ || 0;
+    BR.fightScores = {};
+    Object.keys(room.players||{}).forEach(pid => BR.fightScores[pid] = 0);
+    BR.showFightIntro(room, fight);
+  },
+
+  showFightIntro(room, fightIdx) {
+    const fight = (room.fights||[])[fightIdx];
+    if(!fight){ BR.showConqueror(room); return; }
+    setHeaderRight(`<div class="hdr-score" style="color:var(--yl)">⚔️ Fight ${fightIdx+1}/${BR.fights}</div>`);
+    render(`
+      <div class="br-fight-intro">
+        <div class="br-fight-badge">FIGHT ${fightIdx+1}</div>
+        <div style="font-size:1.3rem;font-weight:800;margin:10px 0">${fight.cat}</div>
+        <div style="font-size:.75rem;color:var(--tx2)">${fight.qs.length} questions · First correct answer wins each point</div>
+        <div class="br-countdown" id="brCountdown">3</div>
+      </div>`);
+    let c = 3;
+    const cd = setInterval(()=>{
+      c--;
+      const el = $('brCountdown');
+      if(el) el.textContent = c > 0 ? c : 'GO!';
+      if(c <= -1){ clearInterval(cd); BR.playFight(room, fightIdx, 0); }
+    }, 1000);
+  },
+
+  playFight(room, fightIdx, qIdx) {
+    const fight = (room.fights||[])[fightIdx];
+    if(!fight || qIdx >= fight.qs.length){
+      BR.endFight(room, fightIdx);
+      return;
+    }
+    const q = fight.qs[qIdx];
+    let timeLeft = 30;
+    setHeaderRight(`<div class="hdr-score" style="color:var(--yl)">⚔️ F${fightIdx+1} Q${qIdx+1}/${fight.qs.length}</div>`);
+    render(`
+      <div class="gbar">
+        <span style="font-size:.65rem;color:var(--or);font-weight:700">FIGHT ${fightIdx+1} · ${fight.cat}</span>
+        <button class="back-sm" onclick="if(confirm('Leave battle?'))BR.leave()">✕</button>
+      </div>
+      <div class="tbar"><div class="tf tf-ok" id="brFill" style="width:100%"></div></div>
+      <div class="mp-scores" id="brScores"></div>
+      <div class="qcard">
+        <div class="qtxt">${q.q}</div>
+        <div class="ans-row">
+          <input class="ans-inp" id="brAns" type="text" placeholder="Answer fast..." autocomplete="off" onkeydown="if(event.key==='Enter')BR.answer(${fightIdx},${qIdx})">
+          <button class="ans-btn ans-pk" onclick="BR.answer(${fightIdx},${qIdx})">→</button>
+        </div>
+      </div>
+      <div id="brFb"></div>`);
+    setTimeout(()=>{ const i=$('brAns'); if(i) i.focus(); }, 80);
+    BR.updateBRScores();
+
+    // Timer
+    const timerId = setInterval(()=>{
+      timeLeft--;
+      const f=$('brFill');
+      if(f){ f.style.width=(timeLeft/30*100)+'%'; if(timeLeft<=8) f.className='tf tf-warn'; }
+      if(timeLeft<=0){ clearInterval(timerId); if(_isHost) BR.advanceFightQ(fightIdx, qIdx); }
+    }, 1000);
+    BR._timerId = timerId;
+
+    // Listen for answers
+    const ansRef = _roomRef.child(`fightAnswers/${fightIdx}/${qIdx}`);
+    const unsub = ansRef.on('value', snap=>{
+      if(!snap.exists()) return;
+      const answers = snap.val();
+      // Update scoreboard
+      const playerCount = Object.keys(room.players||{}).length;
+      const answered = Object.values(answers).filter(a=>a.answer).length;
+      if(answered >= playerCount){
+        ansRef.off('value', unsub);
+        clearInterval(timerId);
+        if(_isHost) setTimeout(()=>BR.advanceFightQ(fightIdx, qIdx), 1500);
+      }
+      // Check if someone got it right first
+      const correct = Object.entries(answers).find(([,a])=>a.correct);
+      if(correct){
+        const fb=$('brFb');
+        if(fb) fb.innerHTML=`<div class="fb-wrap fb-ok"><div class="fb-icon">⚡</div><div class="fb-answer">${(room.players[correct[0]]||{}).name||'Someone'} got it!</div></div>`;
+      }
+    });
+    _unsubscribes.push(()=>ansRef.off('value', unsub));
+  },
+
+  async answer(fightIdx, qIdx) {
+    const ans = ($('brAns')||{}).value?.trim()||'';
+    if(!ans) return;
+    const room = (await _roomRef.once('value')).val();
+    const q = (room.fights[fightIdx]||{}).qs?.[qIdx];
+    if(!q) return;
+    const accepted = [q.a, ...(q.alts||[])];
+    const correct = accepted.some(a=>fuzzyMatch(ans,a));
+    const ts = Date.now();
+    await _roomRef.child(`fightAnswers/${fightIdx}/${qIdx}/${_playerId}`).set({answer:ans,correct,ts,name:window._me.name});
+    if(correct){
+      BR.fightScores[_playerId]=(BR.fightScores[_playerId]||0)+1;
+      BR.totalScores[_playerId]=(BR.totalScores[_playerId]||0)+1;
+      showFeedback(true);
+    } else { showFeedback(false); }
+    const inp=$('brAns'); if(inp){ inp.disabled=true; inp.style.opacity='.4'; }
+    if(_isHost && correct){ clearInterval(BR._timerId); setTimeout(()=>BR.advanceFightQ(fightIdx, qIdx), 1200); }
+  },
+
+  updateBRScores() {
+    const el=$('brScores'); if(!el) return;
+    const room_players = {}; // simplified
+    el.innerHTML=''; // simplified for now
+  },
+
+  async advanceFightQ(fightIdx, qIdx) {
+    const room = (await _roomRef.once('value')).val();
+    const fight = (room.fights||[])[fightIdx];
+    if(qIdx+1 >= (fight?.qs||[]).length){
+      BR.endFight(room, fightIdx);
+    } else {
+      await _roomRef.update({currentQ: qIdx+1});
+      BR.playFight(room, fightIdx, qIdx+1);
+    }
+  },
+
+  endFight(room, fightIdx) {
+    clearInterval(BR._timerId);
+    const isLast = fightIdx >= BR.fights - 1;
+    // Show fight result
+    const scores = Object.entries(BR.fightScores).sort((a,b)=>b[1]-a[1]);
+    const winner = scores[0];
+    const winnerName = (room.players[winner?.[0]]||{}).name || '?';
+    render(`
+      <div class="res">
+        <div class="res-i">${isLast?'👑':'⚔️'}</div>
+        <div class="res-t" style="color:var(--yl)">Fight ${fightIdx+1} ${isLast?'— Final Fight':'Complete'}</div>
+        <div style="font-size:.75rem;color:var(--tx2);margin-bottom:12px">🏆 ${winnerName} dominated this round</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
+          ${scores.map(([pid,score],i)=>`
+            <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg2);border-radius:10px;padding:10px 14px">
+              <span>${['⚡','🔥','💀'][i]||'·'} ${(room.players[pid]||{}).name||pid}</span>
+              <span style="font-family:var(--fm);color:var(--cy)">${score} pts this fight · <span style="color:var(--yl)">${BR.totalScores[pid]||0} total</span></span>
+            </div>`).join('')}
+        </div>
+        ${isLast
+          ? `<button class="btn btn-or" onclick="BR.showConqueror(null)">🏆 See CONQUEROR</button>`
+          : `<div style="text-align:center;color:var(--tx2);font-size:.8rem">Next fight starts in <span id="brNextCount" style="color:var(--yl);font-weight:700">5</span>s...</div>`}
+      </div>`);
+
+    if(!isLast){
+      let c=5;
+      const cd=setInterval(async ()=>{
+        c--; const el=$('brNextCount'); if(el) el.textContent=c;
+        if(c<=0){
+          clearInterval(cd);
+          if(_isHost){
+            await _roomRef.update({currentFight: fightIdx+1, currentQ:0});
+            const r=(await _roomRef.once('value')).val();
+            BR.fightScores={};
+            Object.keys(r.players||{}).forEach(pid=>BR.fightScores[pid]=0);
+            BR.showFightIntro(r, fightIdx+1);
+          }
+        }
+      },1000);
+    } else if(_isHost){
+      _roomRef.update({status:'conquered'});
+    }
+  },
+
+  async showConqueror(room) {
+    if(!room){ room=(await _roomRef.once('value')).val(); }
+    clearInterval(BR._timerId);
+    setHeaderRight('');
+    const scores=Object.entries(BR.totalScores).sort((a,b)=>b[1]-a[1]);
+    const conqueror=(room?.players[scores[0]?.[0]]||{}).name||'Unknown';
+    render(`
+      <div class="res" style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:8px;animation:pulse 1s ease infinite">👑</div>
+        <div style="font-size:1.8rem;font-weight:800;background:var(--g3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">CONQUEROR</div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--yl);margin-bottom:16px">${conqueror}</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin:16px 0">
+          ${scores.map(([pid,score],i)=>`
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:${i===0?'rgba(255,198,64,.08)':'var(--bg2)'};border-radius:11px;border:1px solid ${i===0?'var(--yl)':'var(--bd)'}">
+              <span style="font-size:1.2rem">${['👑','🥈','🥉','4️⃣'][i]||'·'}</span>
+              <span style="font-weight:700;flex:1">${(room?.players[pid]||{}).name||pid}</span>
+              <span style="font-family:var(--fm);font-size:1.3rem;color:${i===0?'var(--yl)':'var(--cy)'}">${score} pts</span>
+            </div>`).join('')}
+        </div>
+        <div class="btn-r">
+          <button class="btn btn-or" onclick="MP.menu()">Rematch</button>
+          <button class="btn btn-gh" onclick="App.home()">Home</button>
+        </div>
+      </div>`);
+    setTimeout(()=>{ if(_roomRef) _roomRef.remove(); }, 60000);
+  },
+
+  leave(){
+    _unsubscribes.forEach(fn=>{ try{fn();}catch(e){} }); _unsubscribes=[];
+    clearInterval(BR._timerId);
+    if(_roomRef&&_playerId) _roomRef.child('players/'+_playerId).remove();
+    if(_isHost&&_roomRef) _roomRef.remove();
+    _roomRef=null; _roomCode=null; _playerId=null; _isHost=false;
     MP.menu();
   }
 };
