@@ -162,8 +162,10 @@ const MP = {
       ${_isHost ? `<button class="btn btn-pk" id="startBtn" onclick="MP.startGame()" disabled style="opacity:.4">Waiting for players...</button>` : `<div style="text-align:center;color:var(--tx2);font-size:.8rem;padding:8px">Waiting for host to start...</div>`}`);
 
     // Listen for room changes
+    let _lobbyStarted = false;
     const unsub = _roomRef.on('value', snap => {
       if (!snap.exists()) { MP.menu(); return; }
+      if (_lobbyStarted) return; // guard against double-fire
       const room = snap.val();
 
       // Update player list
@@ -173,7 +175,6 @@ const MP = {
           `<div style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg2);border-radius:10px">
             <div style="font-size:1rem">🟢</div>
             <div style="font-weight:600">${p.name}</div>
-            ${room.host === Object.keys(room.players).find(k => room.players[k].name === p.name) ? '<div style="font-size:.6rem;color:var(--or);background:rgba(255,123,58,.1);padding:2px 6px;border-radius:4px;margin-left:auto">HOST</div>' : ''}
           </div>`
         ).join('');
       }
@@ -187,8 +188,9 @@ const MP = {
         startBtn.textContent = `Start Game (${playerCount} players) ⚡`;
       }
 
-      // Game started
+      // Game started — guard + explicit transition
       if (room.status === 'playing') {
+        _lobbyStarted = true;
         _roomRef.off('value', unsub);
         MP.playGame(room);
       }
@@ -203,10 +205,15 @@ const MP = {
   playGame(room) {
     MP._room = room;
     MP._scores = {};
-    Object.keys(room.players).forEach(pid => MP._scores[pid] = 0);
+    // Normalize players (Firebase may return object)
+    const players = room.players || {};
+    Object.keys(players).forEach(pid => MP._scores[pid] = 0);
 
-    // Master sync listener — watches currentQ changes for ALL players
-    let lastQ = -1;
+    // Show first question immediately — don't wait for Firebase callback
+    let lastQ = room.currentQ || 0;
+    MP.showQuestion();
+
+    // Listener for subsequent question advances and game end
     const unsub = _roomRef.on('value', snap => {
       if(!snap.exists()) return;
       const r = snap.val();
@@ -231,7 +238,12 @@ const MP = {
 
   showQuestion() {
     const room = MP._room;
+    if(!room) return;
     const qIdx = room.currentQ || 0;
+    // Firebase may return array as numeric-keyed object — normalize
+    if(room.questions && !Array.isArray(room.questions)) {
+      room.questions = Object.values(room.questions);
+    }
     const questions = room.questions || [];
     if (qIdx >= questions.length) { MP.finishGame(); return; }
 
