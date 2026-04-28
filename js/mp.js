@@ -288,32 +288,34 @@ const MP = {
     }, 1000);
     MP._timerId = timerId;
 
-    // Listen for answers on this question
+    // Listen for answers — advance on any correct OR all responded
     const answersRef = _roomRef.child('answers/' + qIdx);
+    let _advanced = false;
     const unsub = answersRef.on('value', snap => {
-      if (!snap.exists()) return;
+      if (!snap.exists() || _advanced) return;
       const answers = snap.val();
       MP.updateScoreboard(answers);
 
-      // Check if skip consensus reached
-      const skips = Object.values(answers).filter(a => a.skipped).length;
-      const players = Object.keys(MP._room.players || {}).length;
+      const playerCount = Object.keys(MP._room.players || {}).length;
+      const vals = Object.values(answers);
+      const correctOnes = vals.filter(a => a.correct);
+      const skips = vals.filter(a => a.skipped).length;
+      const responded = vals.filter(a => a.answer || a.skipped).length;
+
+      // Update skip status
       const skipStatus = $('skipStatus');
-      if (skipStatus) {
-        if (skips > 0 && skips < players) skipStatus.textContent = `${skips}/${players} want to skip`;
-      }
-      if (skips >= players) {
-        answersRef.off('value', unsub);
-        clearInterval(timerId);
-        MP.advanceQuestion(qIdx, null);
+      if(skipStatus && skips > 0 && skips < playerCount) {
+        skipStatus.textContent = `${skips}/${playerCount} skipped`;
       }
 
-      // Check if everyone has answered
-      const answered = Object.values(answers).filter(a => !a.skipped && a.answer).length;
-      if (answered >= players) {
+      // Advance if: any correct answer OR everyone has responded
+      const shouldAdvance = correctOnes.length > 0 || responded >= playerCount;
+      if (shouldAdvance && _isHost) {
+        _advanced = true;
         answersRef.off('value', unsub);
         clearInterval(timerId);
-        setTimeout(() => MP.advanceQuestion(qIdx, null), 1500);
+        const delay = correctOnes.length > 0 ? 1200 : 500;
+        setTimeout(() => MP.advanceQuestion(qIdx), delay);
       }
     });
     _unsubscribes.push(() => answersRef.off('value', unsub));
@@ -354,17 +356,14 @@ const MP = {
       MP._scores[_playerId] = (MP._scores[_playerId] || 0) + 1;
       showFeedback(true);
       const fb = $('mpFb');
-      if (fb) fb.innerHTML = `<div class="fb-wrap fb-ok"><div class="fb-icon">✅</div><div class="fb-answer">Correct!</div></div>`;
+      if (fb) fb.innerHTML = `<div class="fb-wrap fb-ok"><div class="fb-icon">✅</div><div class="fb-answer">Correct! +1</div></div>`;
     } else {
       showFeedback(false);
       const fb = $('mpFb');
-      if (fb) fb.innerHTML = `<div class="fb-wrap fb-no"><div class="fb-icon">❌</div><div class="fb-answer">Answer: <strong>${q.a}</strong></div></div>`;
-    }
-
-    // If host and correct, advance immediately
-    if (_isHost && correct) {
-      clearInterval(MP._timerId);
-      setTimeout(() => MP.advanceQuestion(qIdx, _playerId), 1200);
+      // Don't reveal the answer — lock input, wait for others/timer
+      if (fb) fb.innerHTML = `<div class="fb-wrap fb-no"><div class="fb-icon">❌</div><div class="fb-answer">Wrong! Waiting...</div></div>`;
+      const inp = $('mpAns');
+      if(inp){ inp.disabled = true; inp.style.opacity = '.5'; }
     }
   },
 
@@ -378,7 +377,7 @@ const MP = {
 
   timeUp(qIdx) {
     toast("Time's up!");
-    if (_isHost) MP.advanceQuestion(qIdx, null);
+    if (_isHost) MP.advanceQuestion(qIdx);
   },
 
   async advanceQuestion(qIdx, winnerId) {
@@ -389,7 +388,7 @@ const MP = {
       await MP.finishGame();
     } else {
       await _roomRef.update({ currentQ: nextQ });
-      setTimeout(() => MP.showQuestion(), 500);
+      // Firebase listener handles showQuestion for ALL players — no manual call needed
     }
   },
 
