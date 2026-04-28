@@ -550,3 +550,44 @@ const N10_CATS=Object.keys(N10_DATA);
 const FACES_LIST=['😎','🤓','😤','🥶','🔥','💀','👻','🤖','🦊','🐱','🦁','🐸','🎃','👽','🧠','💎','⚡','🌙','🦋','🐙','🍕','🎯','🎲','🎭'];
 const AVB_LIST=['linear-gradient(135deg,#ff2d6a,#a75fff)','linear-gradient(135deg,#5b8cff,#00dda8)','linear-gradient(135deg,#ff7b3a,#ffc640)','linear-gradient(135deg,#a75fff,#5b8cff)','linear-gradient(135deg,#ff4040,#ff7b3a)','linear-gradient(135deg,#00dda8,#5b8cff)','linear-gradient(135deg,#ffc640,#ff2d6a)','linear-gradient(135deg,#30d880,#00dda8)'];
 function randomAvatar(){return{f:FACES_LIST[Math.floor(Math.random()*FACES_LIST.length)],b:AVB_LIST[Math.floor(Math.random()*AVB_LIST.length)]};}
+
+// Append to GUESS_DATA
+Object.assign(GUESS_DATA, {
+Flags:[
+{answer:"Japan",flagCode:"jp",clues:["Red circle on white","Called the Land of the Rising Sun","Simple two-color design","The circle represents the sun","Asia-Pacific nation"]},
+{answer:"Brazil",flagCode:"br",clues:["Green background","Yellow diamond shape","Blue circle in center","Stars visible on the circle","Largest South American nation"]},
+{answer:"Canada",flagCode:"ca",clues:["Red and white","Maple leaf in center","Two vertical red bars","North American country","Leaf has 11 points"]},
+{answer:"South Africa",flagCode:"za",clues:["Six colors","Y-shape or plow shape runs through it","Green, black, yellow, red, white, blue","Rainbow nation flag","Designed in 1994"]},
+{answer:"Turkey",flagCode:"tr",clues:["Red background","White crescent moon","White five-pointed star","Similar to Pakistan's flag","Spans Europe and Asia"]},
+{answer:"Jamaica",flagCode:"jm",clues:["Black, green and gold","X diagonal cross (saltire)","Only national flag with no red, white or blue","Caribbean island","Rastafari vibes"]},
+{answer:"Switzerland",flagCode:"ch",clues:["Square shape (one of two square national flags)","Red background","White cross in center","Alpine nation","Neutral country"]},
+{answer:"Morocco",flagCode:"ma",clues:["Red background","Green five-pointed star outline","Star is called Solomon's Seal","North African kingdom","Oldest royal family in world"]},
+],
+Brands:[
+{answer:"Apple",logo:"https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",clues:["Bitten fruit logo","Founded by Steve Jobs","Makes the iPhone","HQ in Cupertino","Most valuable company in history"]},
+{answer:"Nike",logo:"https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",clues:["Swoosh logo","Just Do It","Sports and athleisure brand","Named after Greek goddess of victory","Founded in Oregon, 1964"]},
+{answer:"Ferrari",logo:"https://upload.wikimedia.org/wikipedia/de/7/74/Ferrari-Logo.svg",clues:["Prancing horse logo","Italian sports car brand","Founded by Enzo Ferrari","Red is the signature color","HQ in Maranello, Italy"]},
+{answer:"Chanel",logo:"https://upload.wikimedia.org/wikipedia/commons/2/27/Logo_chanel.svg",clues:["Double interlocked C logo","French luxury fashion house","Founded by Coco Chanel","Famous for No. 5 perfume","Little black dress pioneer"]},
+{answer:"Mercedes-Benz",logo:"https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg",clues:["Three-pointed star logo","German car manufacturer","'The best or nothing'","Invented the first automobile","Stuttgart, Germany HQ"]},
+{answer:"Adidas",logo:"https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg",clues:["Three stripes","Founded in Germany","Trefoil or mountain logo","Rival to Nike","Founded by Adolf Dassler"]},
+],
+'Fictional Characters':[
+{answer:"Sherlock Holmes",clues:["Lives at 221B Baker Street","Consulting detective","Created by Arthur Conan Doyle","Plays the violin","Famous for 'Elementary, my dear Watson'"]},
+{answer:"Elizabeth Bennet",clues:["Pride and Prejudice protagonist","Jane Austen creation","Refuses Mr Collins","Falls for Mr Darcy","Second of five sisters"]},
+{answer:"Walter White",clues:["Chemistry teacher turned drug lord","Breaking Bad","Heisenberg is his alias","New Mexico setting","'I am the danger'"]},
+{answer:"Hermione Granger",clues:["Harry Potter universe","Witch at Hogwarts","Brightest witch of her age","Time-turner user","Played by Emma Watson"]},
+{answer:"Don Quixote",clues:["Spanish literary character","Fights windmills (thinking they're giants)","Cervantes creation","Has a horse named Rocinante","Accompanied by Sancho Panza"]},
+],
+'Art Movements':[
+{answer:"Impressionism",clues:["Late 19th century French movement","Focus on light and movement","Claude Monet's style","Rejected by official Salon","Named after Monet's 'Impression, Sunrise'"]},
+{answer:"Surrealism",clues:["Dream imagery","Salvador Dali's style","Freudian influence","Melting clocks","André Breton founded it"]},
+{answer:"Baroque",clues:["17th century European style","Dramatic light and shadow","Caravaggio and Rembrandt","Grand, ornate, theatrical","Counter-Reformation art"]},
+{answer:"Pop Art",clues:["1950s-60s movement","Andy Warhol's style","Campbell's soup cans","Mass media imagery","Roy Lichtenstein comic style"]},
+],
+});
+
+// Update GUESS_TOPICS to include new ones
+const _allTopics = Object.keys(GUESS_DATA);
+// Overwrite GUESS_TOPICS
+GUESS_TOPICS.length = 0;
+_allTopics.forEach(t => GUESS_TOPICS.push(t));
