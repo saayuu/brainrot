@@ -174,7 +174,7 @@ body{background:var(--bg);color:var(--tx);font-family:var(--ff);min-height:100vh
 .site-header{position:sticky;top:0;z-index:50;background:rgba(10,10,22,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);padding:0 16px}
 .site-header-inner{max-width:660px;margin:0 auto;height:48px;display:flex;align-items:center;justify-content:space-between}
 .site-logo{font-weight:800;font-size:1.1rem;letter-spacing:.02em;cursor:pointer;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;user-select:none}
-.logo-e-sm{font-size:.75em;opacity:.85;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
 .hdr-btn{background:none;border:1px solid var(--bd2);border-radius:8px;color:var(--tx2);font-size:.8rem;padding:5px 10px;cursor:pointer;font-family:var(--ff)}
 .hdr-btn:hover{color:var(--tx);border-color:var(--tx2)}
 .hdr-score{font-family:var(--fm);font-size:.85rem;color:var(--cy);font-weight:500}
@@ -239,3 +239,14 @@ body{background:var(--bg);color:var(--tx);font-family:var(--ff);min-height:100vh
 
 /* PULSE ANIMATION */
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+.site-logo .logo-e-sm,.logo-e-sm{font-size:.75em !important;opacity:.9 !important;background:var(--g1) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;background-clip:text !important;color:transparent !important}
+
+/* ANSWER REVEAL — replaces question card content, no overlay conflict */
+.ans-reveal{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;text-align:center;min-height:140px;animation:fadein .2s ease}
+.ans-reveal-icon{font-size:2.6rem;margin-bottom:8px}
+.ans-reveal-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.ans-reveal-ok .ans-reveal-label{color:var(--gn)}
+.ans-reveal-no .ans-reveal-label{color:var(--rd)}
+.ans-reveal-answer{font-size:1.5rem;font-weight:800;color:var(--tx);margin:4px 0 8px;line-height:1.2}
+.ans-reveal-hint{font-size:.72rem;color:var(--tx2);font-style:italic;line-height:1.5;max-width:280px;margin:0 auto}
