@@ -90,10 +90,18 @@ const Trivia = {
     const q = this.qs[this.idx];
     const accepted = [q.a, ...(q.alts||[])];
     const ok = accepted.some(a => fuzzyMatch(ans, a));
-    if(ok){ this.sc++; this.strk++; window._me.correct++; }
-    else { this.strk = 0; }
-    window._me.total++; Storage.saveMe();
-    this.showFb(ok, false);
+    if(ok){
+      this.sc++; this.strk++; window._me.correct++;
+      window._me.total++; Storage.saveMe();
+      this.showFb(true, false);
+    } else {
+      // Wrong: flash red, clear input, keep timer going — try again
+      const fb = $('tFb');
+      if(fb) fb.innerHTML = '<div style="text-align:center;padding:6px;color:var(--rd);font-size:.85rem;font-weight:600">❌ Try again!</div>';
+      if(inp){ inp.value=''; inp.focus(); }
+      setTimeout(()=>{ const f=$('tFb'); if(f) f.innerHTML=''; }, 900);
+      this.startTimer();
+    }
   },
 
   skip(){ clearInterval(this.timer); this.strk=0; window._me.total++; Storage.saveMe(); this.showFb(false, true); },
