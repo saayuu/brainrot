@@ -1,0 +1,68 @@
+const I18N = {
+  en: {
+    tagline: 'the cure is knowledge',
+    yourName: 'Your name', enterName: 'Enter name...', language: 'Language',
+    enter: 'Enter', readyToPlay: 'Ready to play', games: 'Games', wins: 'Wins',
+    accuracy: 'Accuracy', correct: 'Correct', back: 'Back', home: 'Home',
+    again: 'Again', resetStats: 'Reset Stats', category: 'Category',
+    difficulty: 'Difficulty', questions: 'Questions', easy: 'Easy', medium: 'Medium',
+    hard: 'Hard', play: 'Play', skip: 'Skip', quit: 'Quit', typeAnswer: 'Type your answer...',
+    yourTurn: "'s Turn", timeUp: "Time's up!", correct_answer: 'Correct!',
+    answer_was: 'Answer:', start: 'Start', mixed: 'Mixed',
+    trivia: 'Trivia', guessIt: 'Guess It', name10: 'Name 10', multiplayer: 'Multiplayer',
+    triviaDesc: 'Type your answer · 25+ categories', guessDesc: 'Clues & deduction · 3 strikes',
+    n10Desc: 'Beat the clock · validated', mpDesc: 'Pass & play · live trivia',
+    genius: 'Genius!', nice: 'Nice!', decent: 'Decent!', keepGoing: 'Keep going!',
+    topic: 'Topic', guessPlaceholder: 'Your guess...', nextClue: 'Next Clue',
+    strikes: 'strikes left', gotIt: 'You got it!', itWas: 'It was:',
+    n10Title: 'Name 10:', n10Sub: 'Random category · 60 seconds · 3 strikes for wrong answers',
+    wrongAnswer: "doesn't count!", playerNames: 'Player Names (2-4)',
+    startGame: 'Start Game', wins_round: 'wins!',
+  },
+  fr: {
+    tagline: 'le remède c\'est la connaissance',
+    yourName: 'Ton nom', enterName: 'Entre ton nom...', language: 'Langue',
+    enter: 'Entrer', readyToPlay: 'Prêt à jouer', games: 'Parties', wins: 'Victoires',
+    accuracy: 'Précision', correct: 'Correct', back: 'Retour', home: 'Accueil',
+    again: 'Encore', resetStats: 'Réinitialiser', category: 'Catégorie',
+    difficulty: 'Difficulté', questions: 'Questions', easy: 'Facile', medium: 'Moyen',
+    hard: 'Difficile', play: 'Jouer', skip: 'Passer', quit: 'Quitter', typeAnswer: 'Tape ta réponse...',
+    yourTurn: " joue", timeUp: "Temps écoulé!", correct_answer: 'Correct!',
+    answer_was: 'Réponse:', start: 'Commencer', mixed: 'Mixte',
+    trivia: 'Trivia', guessIt: 'Devine', name10: 'Nomme 10', multiplayer: 'Multijoueur',
+    triviaDesc: 'Tape ta réponse · 25+ catégories', guessDesc: 'Indices & déduction · 3 essais',
+    n10Desc: 'Contre la montre · validé', mpDesc: 'Tour par tour · trivia live',
+    genius: 'Génie!', nice: 'Bien!', decent: 'Pas mal!', keepGoing: 'Continue!',
+    topic: 'Sujet', guessPlaceholder: 'Ta réponse...', nextClue: 'Indice suivant',
+    strikes: 'essais restants', gotIt: 'Trouvé!', itWas: "C'était:",
+    n10Title: 'Nomme 10:', n10Sub: 'Catégorie aléatoire · 60 secondes · 3 erreurs max',
+    wrongAnswer: 'ne compte pas!', playerNames: 'Noms des joueurs (2-4)',
+    startGame: 'Lancer la partie', wins_round: 'gagne!',
+  },
+  ar: {
+    tagline: 'العلاج هو المعرفة',
+    yourName: 'اسمك', enterName: '...أدخل اسمك', language: 'اللغة',
+    enter: 'دخول', readyToPlay: 'جاهز للعب', games: 'ألعاب', wins: 'انتصارات',
+    accuracy: 'الدقة', correct: 'صحيح', back: 'رجوع', home: 'الرئيسية',
+    again: 'مرة أخرى', resetStats: 'إعادة تعيين', category: 'الفئة',
+    difficulty: 'الصعوبة', questions: 'أسئلة', easy: 'سهل', medium: 'متوسط',
+    hard: 'صعب', play: 'العب', skip: 'تخطي', quit: 'خروج', typeAnswer: '...اكتب إجابتك',
+    yourTurn: " يلعب", timeUp: "انتهى الوقت!", correct_answer: '!صحيح',
+    answer_was: ':الجواب', start: 'ابدأ', mixed: 'متنوع',
+    trivia: 'معلومات عامة', guessIt: 'خمّن', name10: 'سمّي 10', multiplayer: 'متعدد اللاعبين',
+    triviaDesc: 'اكتب إجابتك · 25+ فئة', guessDesc: 'تلميحات · 3 محاولات',
+    n10Desc: 'ضد الساعة · مع تحقق', mpDesc: 'بالتناوب · مباشر',
+    genius: '!عبقري', nice: '!رائع', decent: '!جيد', keepGoing: '!استمر',
+    topic: 'الموضوع', guessPlaceholder: '...تخمينك', nextClue: 'تلميح تالي',
+    strikes: 'محاولات متبقية', gotIt: '!أحسنت', itWas: ':كان الجواب',
+    n10Title: ':سمّي 10', n10Sub: 'فئة عشوائية · 60 ثانية · 3 أخطاء كحد أقصى',
+    wrongAnswer: '!لا يُحتسب', playerNames: '(2-4) أسماء اللاعبين',
+    startGame: 'ابدأ اللعبة', wins_round: '!فاز',
+  }
+};
+
+function t(key) {
+  const lang = (window._me && window._me.lang) || 'english';
+  const code = lang === 'french' ? 'fr' : lang === 'arabic' ? 'ar' : 'en';
+  return I18N[code][key] || I18N.en[key] || key;
+}
