@@ -3,7 +3,6 @@ const app=document.getElementById('app');
 
 function render(html){
   app.innerHTML=html;
-  // Set RTL for Arabic
   document.documentElement.dir=window._me.lang==='arabic'?'rtl':'ltr';
 }
 
@@ -12,7 +11,7 @@ function showFeedback(ok){
   d.className='fbo';
   d.innerHTML=`<div class="fbt ${ok?'y':'n'} show">${ok?'✓':'✕'}</div>`;
   document.body.appendChild(d);
-  setTimeout(()=>d.remove(),1000);
+  setTimeout(()=>d.remove(),900);
 }
 
 function toast(msg){
@@ -20,19 +19,34 @@ function toast(msg){
   document.body.appendChild(t);setTimeout(()=>t.remove(),2000);
 }
 
-async function fetchAIQuestions(n,cat,diff){
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:3000,messages:[{role:'user',content:`Generate ${n} ${diff||'medium'} trivia questions about ${cat}. Return ONLY JSON array: [{"question":"Q","answer":"1-3 word answer"}]. Factual, varied, fun.`}]})});
-    if(!r.ok)throw 'api';
-    const d=await r.json();
-    return JSON.parse(d.content[0].text.replace(/```json|```/g,'').trim());
-  }catch(e){return null;}
+// ── FUZZY MATCHING ──────────────────────────────────────────────────────────
+function levenshtein(a,b){
+  const m=a.length,n=b.length;
+  if(m===0)return n;if(n===0)return m;
+  const dp=[];
+  for(let i=0;i<=m;i++)dp[i]=[i];
+  for(let j=0;j<=n;j++)dp[0][j]=j;
+  for(let i=1;i<=m;i++)
+    for(let j=1;j<=n;j++)
+      dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j-1],dp[i-1][j],dp[i][j-1]);
+  return dp[m][n];
 }
 
 function fuzzyMatch(input,answer){
-  const a=input.trim().toLowerCase(),b=answer.toLowerCase();
-  if(a.length<2)return false;
-  return a===b||b.includes(a)||a.includes(b);
+  const clean=s=>s.trim().toLowerCase().replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ');
+  const inp=clean(input);
+  const ans=clean(answer);
+  if(!inp||inp.length<1)return false;
+  if(inp===ans)return true;
+  // Very short answers: exact only
+  if(ans.length<=3)return inp===ans;
+  // Containment check for multi-word answers
+  if(ans.split(' ').length>1&&(ans.includes(inp)||inp.includes(ans)))return true;
+  // Single word partial: only if input is at least 60% of answer length
+  if(inp.length>=Math.ceil(ans.length*0.6)&&ans.includes(inp))return true;
+  // Levenshtein: 1 typo for ≤6 chars, 2 for longer
+  const maxDist=ans.length<=4?0:ans.length<=7?1:2;
+  return levenshtein(inp,ans)<=maxDist;
 }
 
 const App={
