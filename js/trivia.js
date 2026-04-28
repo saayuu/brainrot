@@ -93,7 +93,6 @@ const Trivia = {
     if(ok){ this.sc++; this.strk++; window._me.correct++; }
     else { this.strk = 0; }
     window._me.total++; Storage.saveMe();
-    showFeedback(ok);
     this.showFb(ok, false);
   },
 
@@ -101,16 +100,20 @@ const Trivia = {
   timeUp(){ this.strk=0; window._me.total++; Storage.saveMe(); this.showFb(false, false); },
 
   showFb(ok, skipped){
-    const fb = $('tFb');
+    clearInterval(this.timer);
     const q = this.qs[this.idx];
-    if(fb) fb.innerHTML = `
-      <div class="fb-wrap ${ok?'fb-ok':'fb-no'}">
-        <div class="fb-icon">${ok?'✅':skipped?'⏭️':'❌'}</div>
-        <div class="fb-answer">${ok?'Correct!':'Answer: <strong>'+q.a+'</strong>'}</div>
-        ${q.h ? `<div class="fb-hint">💡 ${q.h}</div>` : ''}
-      </div>`;
-    // Buffer: 2.5s correct, 4s wrong so you can read the answer + fact
-    setTimeout(()=>{ this.idx++; this.showQ(); }, ok ? 2500 : 4000);
+    // Replace the entire qcard with the answer reveal — no overlay fighting
+    const card = document.querySelector('.qcard');
+    if(card){
+      card.innerHTML = `
+        <div class="ans-reveal ${ok?'ans-reveal-ok':'ans-reveal-no'}">
+          <div class="ans-reveal-icon">${ok?'✅':skipped?'⏭️':'❌'}</div>
+          <div class="ans-reveal-label">${ok?'Correct!':skipped?'Skipped':'Wrong!'}</div>
+          ${!ok ? `<div class="ans-reveal-answer">${q.a}</div>` : ''}
+          ${q.h ? `<div class="ans-reveal-hint">💡 ${q.h}</div>` : ''}
+        </div>`;
+    }
+    setTimeout(()=>{ this.idx++; this.showQ(); }, ok ? 2000 : 3500);
   },
 
   confirmQuit(){
