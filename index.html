@@ -400,7 +400,10 @@ function randAv(){return{face:FACES[Math.floor(Math.random()*FACES.length)],bg:A
 function renderAv(el,av,cls=''){el.className='av '+cls;el.style.background=av.bg;el.textContent=av.face;}
 
 /* ===== STORAGE ===== */
-const S=window.storage;
+const S={
+  async get(k,shared){const key=shared?'sh:'+k:k;const v=localStorage.getItem(key);return v?{value:v}:null;},
+  async set(k,v,shared){const key=shared?'sh:'+k:k;localStorage.setItem(key,typeof v==='string'?v:JSON.stringify(v));return{key:k,value:v};}
+};
 let me={id:'u'+Math.random().toString(36).substr(2,8),name:'',lang:'english',av:randAv(),games:0,wins:0,correct:0,total:0};
 
 async function loadMe(){try{const r=await S.get('cb-me');if(r){const d=JSON.parse(r.value);me={...me,...d};return true;}}catch(e){}return false;}
